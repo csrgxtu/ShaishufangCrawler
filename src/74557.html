@@ -22,161 +22,24 @@ var BASEURL = "";
 <script type="text/javascript" src="/js/jquery.floatdiv.js?v=2014120401"></script>
 <script type="text/javascript" src="/js/jquery.form.js?v=2014120401"></script>
 <script type="text/javascript" src="/js/web.js?v=2014120401"></script>
-<script type="text/javascript" src="/js/site/book.js?v=2014120401"></script>
+<script type="text/javascript" src="/js/site/jiaoliu_search_book.js?v=2014120401"></script>
 <title>晒书房-整理藏书,与附近书友分享</title>
 </head>
 <body>
 <div id="container">
 	<div id="headerBg">
 		<div id="header">
-			<a id="logo" href="/index.php/site/main?r=1447404480"><img src="/assets/logo.png" width='119' height='38' /></a>
-			<div class="right">csrgxtu
-| <a href="/index.php/setting/index">设置</a>
-| <a href="/index.php/user/logout">退出</a></div>
+			<a id="logo" href="/index.php/site/main?r=1447404968"><img src="/assets/logo.png" width='119' height='38' /></a>
+			<div class="right">csrgxtu| <a href="/index.php/setting/index">设置</a>| <a href="/index.php/user/logout">退出</a></div>
 			<div class='clearfix'></div>
 			<div id="user_nav"> 
-<span class="whiteBlock" id="myStore"><a href="/index.php/site/main">我的书房</a><img src="/assets/tab_line.png" /></span><span class="normalBlock" id="nearStore"><a href="/index.php/site/main/near/all">交流分享</a></span><span class="normalBlock" id="userRecommend"><a href="/index.php/site/main/recommend/1/category/statusAll">书友之选</a></span><span class="normalBlock" id="discountpage"><a href="/index.php/site/discount">个性淘书</a></span></div>
+<span class="normalBlock" id="myStore"><a href="/index.php/site/main">我的书房</a></span><span class="whiteBlock" id="nearStore"><a href="/index.php/site/main/near/all">交流分享</a><img src="/assets/tab_line.png" /></span><span class="normalBlock" id="userRecommend"><a href="/index.php/site/main/recommend/1/category/statusAll">书友之选</a></span><span class="normalBlock" id="discountpage"><a href="/index.php/site/discount">个性淘书</a></span></div>
 			
 			
 		</div><!-- header -->
 			</div><!-- headerBg -->
 	<div id="content">
-	<div id="nav">
-<a href="/index.php/site/main/near/all/false">全部书房</a> - 云中居</div>
-
-
-<div id="leftMenu">
-	<ul id="categoryList" style="display: block;">
-		<li><a href="/index.php/site/main/uid/74557/category/statusAll/type//friend/false">总藏书 15287</a></li><li><a href="/index.php/site/main/uid/74557/category/K/type//friend/false">历史地理 5657</a></li><li><a href="/index.php/site/main/uid/74557/category/I/type//friend/false">文学 1683</a></li><li><a href="/index.php/site/main/uid/74557/category/T/type//friend/false">工业技术 1246</a></li><li><a href="/index.php/site/main/uid/74557/category/B/type//friend/false">哲学宗教 1203</a></li><li><a href="/index.php/site/main/uid/74557/category/J/type//friend/false">艺术 724</a></li><li><a href="/index.php/site/main/uid/74557/category/F/type//friend/false">经济 696</a></li><li><a href="/index.php/site/main/uid/74557/category/D/type//friend/false" class="on">政治法律 570</a></li><li><a href="/index.php/site/main/uid/74557/category/G/type//friend/false">科教文体 455</a></li><li><a href="/index.php/site/main/uid/74557/category/C/type//friend/false">社会科学 377</a></li><li><a href="/index.php/site/main/uid/74557/category/H/type//friend/false">语言文字 292</a></li><li><a href="/index.php/site/main/uid/74557/category/R/type//friend/false">医药卫生 258</a></li><li><a href="/index.php/site/main/uid/74557/category/P/type//friend/false">天文地球 170</a></li><li><a href="/index.php/site/main/uid/74557/category/N/type//friend/false">自然科学 122</a></li><li><a href="/index.php/site/main/uid/74557/category/Z/type//friend/false">综合性图书 114</a></li><li><a href="/index.php/site/main/uid/74557/category/E/type//friend/false">军事 114</a></li>	</ul>
-	<div id='moreCategorys' class="hide">
-	   	<ul id="moreCategoryList" style="display: block;">
-		   	<li><a href="/index.php/site/main/uid/74557/category/Q/type">生物科学 82</a></li><li><a href="/index.php/site/main/uid/74557/category/S/type">农业科学 77</a></li><li><a href="/index.php/site/main/uid/74557/category/O/type">数理化 73</a></li><li><a href="/index.php/site/main/uid/74557/category/X/type">环境安全 38</a></li><li><a href="/index.php/site/main/uid/74557/category/U/type">交通运输 16</a></li><li><a href="/index.php/site/main/uid/74557/category/A/type">马列毛邓 15</a></li><li><a href="/index.php/site/main/uid/74557/category/2/type">2 1</a></li><li><a href="/index.php/site/main/uid/74557/category/none/type">其它分类 1</a></li><li><a href="/index.php/site/main/uid/74557/category/none/type">其它分类 1303</a></li>		</ul>
-	</div>
-	   	<div id="morebutton"><a href="javascript:void(0);" ></a></div><div id="lessbutton"><a class="hide" href="javascript:void(0);" ></a></div>		
-</div>
-
-<div id="middleBooks">
-	<div id="bookDetail">
-		<div id="bookHeader">
-			<div id="headImg">
-								<img src="http://shaishufang.com/assets/books/s/20/74/wv2MnJTG.jpg" />
-												
-				<input type="hidden" id="ubid" value="10490038" />
-			</div>
-			<div id="attr">
-				<h2 >尼罗河畔的古埃及妇女</h2>
-				<ul>
-					<li>分类: 政治法律</li>
-					<li>作者:王海利 著</li>
-					<li>出版社:中国青年出版社</li>
-					<li>出版时间:2007-03-01</li>
-          <li>ISBN:9787500672647</li>
-          
-
-				</ul>
-			</div>
-			<div id="extraInfo">
-				<div>
-					<div>
-						<span class='usersCount'><span id='bookUserCollect' class='link'>9</span> 人收藏 </span>| 
-						<span class='usersCount'><span id='bookUserRecommend' class='link'>1</span> 人推荐</span>
-					</div>
-					<div>
-						<span class='usersCount'><span id='bookUserReading' class='link'>0</span> 人在读 </span>|
-						<span class='usersCount'><span id='bookUserRead' class='link'>1</span> 人读过 </span>|
-						<span class='usersCount'><span id='bookUserWish' class='link'>1</span> 人想读</span>
-					</div>
-				</div>
-				<div id="bookRate">
-				<span id="starCondition">请您评分:</span> <img class="star" src="/assets/start_empty.png" id="1" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="2" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="3" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="4" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="5" align="absmiddle" />				</div>
-				
-				<div id="bookOperate">
-					<br>
-					<span>
-					<a id="modifyUB" class="link" href="javascript:void(0)">未标记</a>					</span>&nbsp;  &nbsp;
-												<a id="shareToWeibo" name="pbtn" class="link" href="javascript:void(0)" >推荐</a>&nbsp;  &nbsp;
-							<a id= "shareToWeibo2"></a>				
-				    				    			    </div>
-				<div id="bookPrivate">					
-					
-										<!--<a href=" --> <!--" id="back">后退</a>-->					<a href="/index.php/site/detail/uid/74557/ubid/10490037/status//category/D" id="next">下一本</a>					<a href="/index.php/site/detail/uid/74557/ubid/10490846/status//category/D" id="last">上一本</a>				</div>
-				
-		    				</div>
-		</div>
-		<br>
-		
-            
-		<div id="bookIntro">
-			<div class="title">--内容简介--</div>
-			<div class="text">
-				本书以全新视角解析了古埃及女性各个社会生活层面的情况，探索了男女两性性别关系的特征。古埃及的公主为何不外嫁？古埃及的天神为何是女性？为什么是古埃及人最早发明了假发和描眉技术?古埃及的木乃伊是如何制作的？本书以轻松优美的文笔娓娓道来。书中有作者在当地拍摄的博物馆珍藏图片，融知识性和可读性于一体。			</div>
-		</div>
-		<div id="bookComments">
-			<div class="title"><a name="comment">--书评--</a></div>
-			<div id="bookComment">
-							</div>			
-			<div id="doubanSummary"></div>
-		</div>
-		
-		<div style="width:100%;background-color: #FFFFFF;margin:15px 0 0 0;padding:0;display:block;float:left;">
-						<!-- <a id="message_btn" class="link">我想要的书，发站内信给TA</a> -->	
-						<!--  
-			<div id="message_box" class="modalBCB" style="display:none;" >
-				<ul>
-					<li>发站内信给TA</li>
-					<li><textarea id="message_content"></textarea></li>
-					<li>
-						<input type="button" value="发私信" id="sendMessage" />
-						<input type="button" id="cancelMessage" value="取消" />
-					</li>
-				</ul>
-				<input type="hidden" name="uid" value="74557" id="mUid" />
-			</div>
-			-->
-			<div id="loading" style="display:none;">请稍候...</div>
-		</div>
-	</div>
-</div>
-
-<div id="changeBookStatus">
-	<form>	
-	<div class="statusButton">		
-		<ul id="bookStatus">
-		
-		<div class='hide'>			<li><a status="1" class="zd"></a><br /><span>在读</span></li>
-			<li><a status="2" class="yd"></a><br /><span>读过</span></li>
-		</div>			    
-		    <li><a status="4" class="xd_sel"></a><br /><span>想读</span></li>	
-		   			<li><a status="0" class="bbj"></a><br /><span>不标记</span></li>
-				
-		</ul>		
-	</div>
-	
-	<div class="clearfix"></div>
-	<!--  div id="bookSource" class="mySource" >我的评分:<img class="star" src="/assets/start_empty.png" id="1" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="2" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="3" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="4" align="absmiddle" /><img class="star" src="/assets/start_empty.png" id="5" align="absmiddle" /></div>-->
-	<!--
-	<div class="modalBCB">
-		<ul>
-			<li><span>简短附注:</span></li>
-			<li><textarea id="shoutContent" ></textarea></li>
-			<li><input id="book_Comment" type="button" value="发表评论" /></li>					
-		</ul>
-	</div>
-	 -->
-	<div style="text-align: center; margin-top:38px">
-		<input type="button" value="确定" id="btnSubmitStatusSource">
-	</div>
-	<input type="hidden" name="bid" id="bid" value="152354" />
-	<input type="hidden" id="status" value="0" />
-	<input type="hidden" id="source" value="0" />
-	</form>
-	
-</div>
-
-<div id="rightMenu">
-	<div id='searchbar' style='width:20px;'></div>
-	
-	  <div  class="userbox" id='user' >
+	<div id="nav" style="width:540px;"><a href="/index.php/site/main/near/all/friend/false">全部书房</a> - 云中居</div><div id="leftMenu">	<ul id="categoryList" style="display: block;">		<li><a  href="/index.php/site/main/uid/74557/category/statusAll/type//friend/false" class="on">总藏书 15287</a></li><li><a href="/index.php/site/main/uid/74557/category/K/type//friend/false">历史地理 5657</a></li><li><a href="/index.php/site/main/uid/74557/category/I/type//friend/false">文学 1683</a></li><li><a href="/index.php/site/main/uid/74557/category/T/type//friend/false">工业技术 1246</a></li><li><a href="/index.php/site/main/uid/74557/category/B/type//friend/false">哲学宗教 1203</a></li><li><a href="/index.php/site/main/uid/74557/category/J/type//friend/false">艺术 724</a></li><li><a href="/index.php/site/main/uid/74557/category/F/type//friend/false">经济 696</a></li><li><a href="/index.php/site/main/uid/74557/category/D/type//friend/false">政治法律 570</a></li><li><a href="/index.php/site/main/uid/74557/category/G/type//friend/false">科教文体 455</a></li><li><a href="/index.php/site/main/uid/74557/category/C/type//friend/false">社会科学 377</a></li><li><a href="/index.php/site/main/uid/74557/category/H/type//friend/false">语言文字 292</a></li><li><a href="/index.php/site/main/uid/74557/category/R/type//friend/false">医药卫生 258</a></li><li><a href="/index.php/site/main/uid/74557/category/P/type//friend/false">天文地球 170</a></li><li><a href="/index.php/site/main/uid/74557/category/N/type//friend/false">自然科学 122</a></li><li><a href="/index.php/site/main/uid/74557/category/Z/type//friend/false">综合性图书 114</a></li>	</ul>	<div id='moreCategorys' class="hide">	   	<ul id="moreCategoryList" style="display: block;">		   	<li><a href="/index.php/site/main/uid/74557/category/E/type//friend/false">军事 114</a></li><li><a href="/index.php/site/main/uid/74557/category/Q/type//friend/false">生物科学 82</a></li><li><a href="/index.php/site/main/uid/74557/category/S/type//friend/false">农业科学 77</a></li><li><a href="/index.php/site/main/uid/74557/category/O/type//friend/false">数理化 73</a></li><li><a href="/index.php/site/main/uid/74557/category/X/type//friend/false">环境安全 38</a></li><li><a href="/index.php/site/main/uid/74557/category/U/type//friend/false">交通运输 16</a></li><li><a href="/index.php/site/main/uid/74557/category/A/type//friend/false">马列毛邓 15</a></li><li><a href="/index.php/site/main/uid/74557/category/2/type//friend/false">2 1</a></li><li><a href="/index.php/site/main/uid/74557/category/none/type//friend/false">其它分类 1</a></li><li><a href="/index.php/site/main/uid/74557/category/none/type//friend/false">其它分类 1303</a></li>		</ul>	</div>	   	<div id="morebutton"><a href="javascript:void(0);" ></a></div><div id="lessbutton"><a class="hide" href="javascript:void(0);" ></a></div>		</div><div id="middleBooks">	<ul id="booksList">				<li id="10491528"><a href="/index.php/site/detail/uid/74557/ubid/10491528/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/81/69/NCFv4nPF.jpg" /></a><br />云南天堂</li>						<li id="10491527"><a href="/index.php/site/detail/uid/74557/ubid/10491527/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/70/38/JzBsGtqT.jpg" /></a><br />青海在那遥远的地方</li>						<li id="10491526"><a href="/index.php/site/detail/uid/74557/ubid/10491526/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/11/61/0KSM53Pw.jpg" /></a><br />两广竞秀</li>						<li id="10491523"><a href="/index.php/site/detail/uid/74557/ubid/10491523/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/none.png" /></a><br />中国节庆大全</li>						<li id="10491524"><a href="/index.php/site/detail/uid/74557/ubid/10491524/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/18/14/pViyqIfX.jpg" /></a><br />中国节庆会展旅...</li>						<li id="10491525"><a href="/index.php/site/detail/uid/74557/ubid/10491525/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/97/08/RZJKfWfH.jpg" /></a><br />《山海经之南山...</li>						<li id="10491521"><a href="/index.php/site/detail/uid/74557/ubid/10491521/status//category/none/friend/false"><img src="http://shaishufang.com/assets/books/none.png" /></a><br />中国节庆会展旅...</li>						<li id="10491522"><a href="/index.php/site/detail/uid/74557/ubid/10491522/status//category/none/friend/false"><img src="http://shaishufang.com/assets/books/none.png" /></a><br />中国节庆会展旅...</li>						<li id="10491462"><a href="/index.php/site/detail/uid/74557/ubid/10491462/status//category/J/friend/false"><img src="http://shaishufang.com/assets/books/s/16/99/mFua5zca.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491461"><a href="/index.php/site/detail/uid/74557/ubid/10491461/status//category/K/friend/false"><img src="http://shaishufang.com/assets/books/s/86/54/OZdNyNZh.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491460"><a href="/index.php/site/detail/uid/74557/ubid/10491460/status//category/J/friend/false"><img src="http://shaishufang.com/assets/books/s/54/68/FWnnbXR2.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491459"><a href="/index.php/site/detail/uid/74557/ubid/10491459/status//category/T/friend/false"><img src="http://shaishufang.com/assets/books/s/18/96/rqWbTvO9.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491457"><a href="/index.php/site/detail/uid/74557/ubid/10491457/status//category/U/friend/false"><img src="http://shaishufang.com/assets/books/s/13/16/bO08OVwV.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491458"><a href="/index.php/site/detail/uid/74557/ubid/10491458/status//category/none/friend/false"><img src="http://shaishufang.com/assets/books/s/18/69/r6DvAqKd.jpg" /></a><br />浙江省非物质文...</li>						<li id="10491449"><a href="/index.php/site/detail/uid/74557/ubid/10491449/status//category/T/friend/false"><img src="http://shaishufang.com/assets/books/s/34/99/9wBmDbfT.jpg" /></a><br />俞源村古建筑群...</li>				</ul>			<ul id="booksPage">	<li class="actPageLi">1</li><li><a href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/2'>2</a></li><li><a href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/3'>3</a></li><li><a href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/4'>4</a></li><li><a href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/5'>5</a></li><li>...</li><li><a href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/1020'>1020</a></li><li class='normalLi' style='width:20px;'>					<a id='pageNext' alt='下一页' href='/index.php/site/main/uid/74557/friend/false/category//status//type//page/2'>>></a></li>	</ul>	<div id="bookDetail">		</div></div><div id="rightMenu">	<div id='searchbar' style='display:'>		<form>					<div>							<input type="text"  class="input" name="bookName" onfocus="if(this.value==this.defaultValue)this.value='';this.className='focusinput';" onblur="if(this.value=='')this.value=this.defaultValue;this.className='input';" value="搜索图书"/>				<input type="image" class="inputImg"  src="/assets/search.gif" value="go" />			</div>					<input type="hidden" id="pageStatus" value="0" />			<input type="hidden" id="pageCategory" value="statusAll" />			<input type="hidden" id="pageNear" value="county" />			<input type="hidden" id="uid" value="0" />			<input type="hidden" id="currentPage" value="1" />			<input type="hidden" id="pageCnt" value="7" />		</form>		<div class="clearfix"></div>	</div>	<br />	  <div  class="userbox" id='user' >
 		<div id="head">
 			<div>
 	      		<div id="usericon">
@@ -218,8 +81,7 @@ var BASEURL = "";
 </div>
 
 
-	
-	  
+			  
 <div class="toolsSystem">  
 <ul>  
 			<li>
@@ -253,12 +115,7 @@ var BASEURL = "";
 			<a href="http://t.qq.com/shaishufang"><img style="vertical-align:text-bottom;margin-left:-36px;" src="/assets/flowerkai.png"></a>
 		</div>
 		<div class="clearfix"></div>
-	</div>  
-		
-</div>
-
-
-  
+	</div>  </div>  
 <div id="feedback"  style="display: none;">
 <form id="feedbackform">
 	<table>
@@ -288,145 +145,7 @@ onblur="if(this.value=='')this.value=this.defaultValue;this.className='input';" 
 	<!-- </tbody> -->
 	</table>
 </form>
-</div>	 
-
-<div id='collect_user' style='display:none;'>
-	<a href='http://shaishufang.com/index.php/site/main/uid/4'><img class='usersHeadLeft' src='http://tp4.sinaimg.cn/1686531655/180/5624888254/1' title='murong' ></a><a href='http://shaishufang.com/index.php/site/main/uid/8258'><img class='usersHeadRight' src='http://shaishufang.com/assets/avatar/18/48/21/1385514277600_9696.jpg' title='zzpaper' ></a><a href='http://shaishufang.com/index.php/site/main/uid/12018'><img class='usersHeadRight' src='http://shaishufang.com/assets/avatar/65/45/13/1390366524148_9696.jpg' title='哥特式loli脸' ></a><a href='http://shaishufang.com/index.php/site/main/uid/15760'><img class='usersHeadRight' src='http://tp4.sinaimg.cn/1648877855/180/5643160791/0' title='捌妹' ></a><a href='http://shaishufang.com/index.php/site/main/uid/17024'><img class='usersHeadRight' src='http://shaishufang.com/assets/avatar/17/03/52/1386081265614_9696.jpg' title='皮蛋妹' ></a></div>
-
-<div id='recommend_user' style='display:none;'>
-	<a href='http://shaishufang.com/index.php/site/main/uid/40'><img class='usersHeadLeft' src='http://shaishufang.com/assets/avatar/47/84/62/1385694763673_9696.jpg' title='121dasdasd'></a></div>
-
-<div id='reading_user' style='display:none;'>
-	</div>
-
-<div id='read_user' style='display:none;'>
-	<a href='http://shaishufang.com/index.php/site/main/uid/104169'><img class='usersHeadLeft' src='http://img3.douban.com/icon/u2244115-3.jpg' title='老虎闻玫瑰2007'></a></div>
-
-<div id='wish_user' style='display:none;'>
-	<a href='http://shaishufang.com/index.php/site/main/uid/8258'><img class='usersHeadLeft' src='http://shaishufang.com/assets/avatar/18/48/21/1385514277600_9696.jpg' title='zzpaper'></a></div>
-
-<div id="categoryTags" style="display: none;">
-	<ul>
-		<li class="tag2" id="A"><a href="#">马列主义毛邓思想</a></li> 
-		<li class="tag1" id="B"><a href="#">哲学宗教</a></li>
-		<li class="tag1" id="D"><a href="#">政治法律</a></li>
-	</ul>
-	<ul>
-		<li class="tag1" id="E"><a href="#">军事</a></li>
-		<li class="tag1" id="F"><a href="#">经济</a></li>
-		<li class="tag1" id="H"><a href="#">语言文字</a></li>
-		<li class="tag1" id="C"><a href="#">社会科学总论</a></li>
-	</ul>
-	<ul>	
-		<li class="tag1" id="G"><a href="#">文化科学教育体育</a></li>
-		<li class="tag1" id="I"><a href="#">文学</a></li>
-		<li class="tag1" id="J"><a href="#">艺术</a></li>
-		<li class="tag1" id="K"><a href="#">历史地理</a></li>
-	</ul>
-	<ul>
-		<li class="tag1" id="N"><a href="#">自然科学</a></li>
-		<li class="tag1" id="O"><a href="#">数理科学和化学</a></li>
-		<li class="tag1" id="Q"><a href="#">生物科学</a></li>
-	</ul>
-	<ul>	
-		<li class="tag1" id="R"><a href="#">医药卫生</a></li>
-		<li class="tag1" id="S"><a href="#">农业科学</a></li>
-		<li class="tag1" id="P"><a href="#">天文学和地球科学</a></li>
-	</ul>
-	<ul>	
-		<li class="tag1" id="T"><a href="#">工业技术</a></li>
-		<li class="tag1" id="U"><a href="#">交通运输</a></li>
-		<li class="tag1" id="V"><a href="#">航空航天</a></li>
-		<li class="tag1" id="Z"><a href="#">综合性图书</a></li>
-	</ul>
-	<ul>	
-		<li class="tag3" id="X"><a href="#" id="D">环境科学和安全科学</a></li>
-	</ul>
-</div>
-
-<div id="choiceness">
-	<form>	
-	<div class="">
-	<table style="margin: 10px 28px 0 18px;">
-		<tr>
-			<td><div id="headImg" style="height:154px;"><img src="http://shaishufang.com/assets/books/s/20/74/wv2MnJTG.jpg" /></img></div></td>
-			<td><div style="height:154px;"><textarea class="input" id="choiceness_content" 
-			onfocus="if(this.value==this.defaultValue)this.value='#晒书房好书推荐#《尼罗河畔的古埃及妇女》-王海利 著\r';
-this.className='focusinput';" 
-onblur="if(this.value=='')this.value=this.defaultValue;this.className='input';" >#晒书房好书推荐#《尼罗河畔的古埃及妇女》-王海利 著&#13;&#10;推荐理由</textarea></div>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td>
-				<span id="contentTip"  style="font-size:10px; float:right; margin-top:-12px; color: #999;">140</span>
-			</td>
-		</tr> 
-		<tr>
-			<td style="text-align: center;">尼罗河畔的古埃及妇女</td>
-			<td>
-				<table>
-					<tr>
-						<td>将推荐到：</td>
-						<td>
-							<div class="syncshf" id="syncshf" >					
-															</div>	
-											
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
-	</div>
-	
-	<div class="clearfix"></div>
-	
-	<div style="text-align: center;margin-top:13px;margin-bottom:8px;">
-		<input type="button" value="提交" id="btnSubmitChoiceness">
-	</div>
-	<input type="hidden" name="bid" id="bid" value="152354" />
-	</form>
-</div>
-<div class="clearfix"></div>
-<div id="choicenessOK"  style="display: none;">
-	<table style="background-color: white;background-color: white;
-		width: 440px; height:190px;
-		-webkit-border-radius: 5px;
-		-moz-border-radius: 5px;">			
-		<tr>				
-			<td align="center">
-			<a href="http://shaishufang.com" ><img src="/assets/ok.png"></img></a>
-			</td>
-		</tr>
-		<tr>				
-			<td align="center" style="font-size: 18px;font-family: 微软雅黑;font-weight:bold;">推荐成功</td>
-		</tr>
-		<tr>
-			<td align="center" style="font-size: 12px;font-family: 微软雅黑;">
-			点击查看
-			</td>
-		</tr>
-		<tr>						
-			<td align="center" id="syncshfok" >				
-													
-			</td>
-		</tr>
-		
-	</table>
-	
-	<div  style="text-align: center; margin-top:12px;"> 
-		<input type="button" value="确定" id="btnChoicenessOK" style="width:82px; height:27px; ">
-	</div>
-</div>	
-
-
-<script type="text/javascript" src="/js/douban.js"></script>	
-<script type="text/javascript" >
-douban.init(9787500672647);
-</script>
-
-	</div><!-- content -->
+</div>	  		</div><!-- content -->
 <div id="footerBg" 	style="margin:30px auto 0 auto; width:480px; ">
 
 		<div id="footer">
