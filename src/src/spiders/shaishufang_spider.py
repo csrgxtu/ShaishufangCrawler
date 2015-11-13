@@ -3,10 +3,14 @@ import scrapy
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
-    start_urls = [
-        'http://shaishufang.com/index.php/site/main/uid/1/status//category//friend/false',
-        'http://shaishufang.com/index.php/site/main/uid/74557/status//category//friend/false',
-    ]
+    start_urls = []
+
+    # build start_urls list first
+    def __init__(self):
+        urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
+        urlPostfix = '/status//category//friend/false'
+        for i in range(1, 2):
+            self.start_urls.append(urlPrefix + str(i) + urlPostfix)
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
