@@ -9,7 +9,7 @@ class ShaishufangSpider(scrapy.Spider):
     def __init__(self):
         urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
         urlPostfix = '/status//category//friend/false'
-        for i in range(1, 2):
+        for i in range(1, 3):
             self.start_urls.append(urlPrefix + str(i) + urlPostfix)
 
     def start_requests(self):
