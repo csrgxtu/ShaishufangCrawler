@@ -16,9 +16,11 @@ class MongoDBPipeline(object):
             settings['MONGODB_PORT']
         )
         db = connection[settings['MONGODB_DB']]
-        self.collection = db[settings['MONGODB_USERS_COLLECTION']]
+        self.usersCollection = db[settings['MONGODB_USERS_COLLECTION']]
+        self.booksCollection = db[settings['MONGODB_BOOKS_COLLECTION']]
 
     def process_item(self, item, spider):
+        logging.info(spider.userOrBook)
         valid = True
         for data in item:
             if not data:
@@ -26,8 +28,21 @@ class MongoDBPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
 
         if valid:
-            self.collection.insert(dict(item))
-            logging.info("User added to MongoDB database")
+            if spider.userOrBook == 'User':
+                self.usersCollection.insert(dict(item))
+                logging.info("User added to MongoDB database")
+            elif spider.userOrBook == 'Book':
+                self.booksCollection.insert(dict(item))
+                logging.info("Book added to MongoDB database")
+            else:
+                pass
+
+            # if item['UBID']:
+            #     self.booksCollection.insert(dict(item))
+            #     logging.info("Book added to MongoDB database")
+            # else:
+            #     self.usersCollection.insert(dict(item))
+            #     logging.info("User added to MongoDB database")
 
         return item
 

@@ -23,6 +23,8 @@ class ShaishufangSpider(scrapy.Spider):
     bookUrlPrefix = 'http://shaishufang.com/index.php/site/detail/uid/'
     bookUrlPostfix = '/status//category/I/friend/false'
 
+    userOrBook = 'User'
+
     # build start_urls list first
     def __init__(self):
         for i in range(2, 3):
@@ -43,6 +45,7 @@ class ShaishufangSpider(scrapy.Spider):
         userItem['UserName'] = userName
         userItem['TotalBooks'] = totalBooks
         userItem['TotalPages'] = totalPages
+        self.userOrBook = 'User'
         yield userItem
 
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
@@ -71,7 +74,8 @@ class ShaishufangSpider(scrapy.Spider):
             bookItem['ISBN'] = ISBN
             bookItem['UID'] = uid
             bookItem['UBID'] = ubid
-            # yield bookItem
+            self.userOrBook = 'Book'
+            yield bookItem
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
