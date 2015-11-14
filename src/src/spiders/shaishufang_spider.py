@@ -1,5 +1,8 @@
+# coding=utf-8
 import scrapy
 from bs4 import BeautifulSoup
+import logging
+import re
 
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
@@ -18,15 +21,13 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(self.start_urls[i], cookies={'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'})
 
     def parse(self, response):
-        filename = '74557.html'
-        with open(filename, 'wb') as f:
-            f.write(response.body)
-
-    def userPaser(self, response):
         soup = BeautifulSoup(response.body)
-
-        totalBooks = self.getTotalPageNum(soup)
-        pass
+        userName = self.getUserName(soup)
+        totalPages = self.getTotalPages(soup)
+        totalBooks = self.getTotalBooks(soup)
+        logging.info(userName)
+        logging.info(totalBooks)
+        logging.info(totalPages)
 
     # 从soup中获取username
     def getUserName(self, soup):
