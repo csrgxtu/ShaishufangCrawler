@@ -18,9 +18,11 @@ class ShaishufangSpider(scrapy.Spider):
     urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
     urlPostfix = '/status//category//friend/false'
 
+    pagePostfix = '/friend/false/category//status//type//page/'
+
     # build start_urls list first
     def __init__(self):
-        for i in range(1, 3):
+        for i in range(1, 2):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
@@ -39,6 +41,31 @@ class ShaishufangSpider(scrapy.Spider):
         userItem['TotalBooks'] = totalBooks
         userItem['TotalPages'] = totalPages
         yield userItem
+
+        UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
+        for page in range(1, totalPages + 1):
+            url = self.urlPrefix + UID + self.pagePostfix + str(page)
+            yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
+
+    def parsePage(self, response):
+        soup = BeautifulSoup(response.body)
+
+        bids = self.getUbids(soup)
+        logging.info(bids)
+
+    # 从书籍列表页面获取UBIDS
+    def getUbids(self, soup):
+        bids = []
+        if not soup:
+            return bids
+
+        if soup.find('ul', {'id': 'booksList'}):
+            if len(soup.find('ul', {'id': 'booksList'}).find_all('li')) == 0:
+                return bids
+            for item in soup.find('ul', {'id': 'booksList'}).find_all('li'):
+                bids.append(item.attrs['id'])
+
+        return bids
 
     # 从soup中获取username
     def getUserName(self, soup):
