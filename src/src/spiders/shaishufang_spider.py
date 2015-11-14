@@ -30,7 +30,7 @@ class ShaishufangSpider(scrapy.Spider):
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            yield scrapy.Request(self.start_urls[i], cookies=self.cookie)
+            yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
         soup = BeautifulSoup(response.body)
@@ -43,7 +43,7 @@ class ShaishufangSpider(scrapy.Spider):
         userItem['UserName'] = userName
         userItem['TotalBooks'] = totalBooks
         userItem['TotalPages'] = totalPages
-        yield userItem
+        # yield userItem
 
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
@@ -57,7 +57,6 @@ class ShaishufangSpider(scrapy.Spider):
         bids = self.getUbids(soup)
         for bid in bids:
             url = self.bookUrlPrefix + uid + '/ubid/' + bid + self.bookUrlPostfix
-            logging.info(url)
             yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
 
     def parseBook(self, response):
@@ -67,12 +66,12 @@ class ShaishufangSpider(scrapy.Spider):
 
         ISBN = self.getISBN(soup)
         if ISBN:
-            # BookItem 包含好多字段，这里只插入ISBN
+            # BookItem 包含好多字段，这里只插入ISBN, UID, UBID
             bookItem = BookItem()
             bookItem['ISBN'] = ISBN
             bookItem['UID'] = uid
             bookItem['UBID'] = ubid
-            yield bookItem
+            # yield bookItem
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
