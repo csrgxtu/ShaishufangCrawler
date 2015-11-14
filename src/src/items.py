@@ -7,8 +7,20 @@
 
 import scrapy
 
+# 用户的meta信息
+class UserItem(scrapy.Item):
+    UID = scrapy.Field()
+    UserName = scrapy.Field()
+    TotalBooks = scrapy.Field()
+    TotalPages = scrapy.Field()
 
-class SrcItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+# 书籍的meta信息
+class BookItem(scrapy.Item):
+    BookID = scrapy.Field()
+    UBID = scrapy.Field()
+    BookName = scrapy.Field()
+    Author = scrapy.Field()
+    Publisher = scrapy.Field()
+    PubTime = scrapy.Field()
     ISBN = scrapy.Field()
+    Abstract = scrapy.Field()

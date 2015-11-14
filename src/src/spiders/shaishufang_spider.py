@@ -4,10 +4,16 @@ from bs4 import BeautifulSoup
 import logging
 import re
 
+from src.items import UserItem, BookItem
+
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
     start_urls = []
+
+    cookie = {
+        'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'
+    }
 
     # build start_urls list first
     def __init__(self):
@@ -18,16 +24,19 @@ class ShaishufangSpider(scrapy.Spider):
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            yield scrapy.Request(self.start_urls[i], cookies={'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'})
+            yield scrapy.Request(self.start_urls[i], cookies=self.cookie)
 
     def parse(self, response):
         soup = BeautifulSoup(response.body)
         userName = self.getUserName(soup)
         totalPages = self.getTotalPages(soup)
         totalBooks = self.getTotalBooks(soup)
-        logging.info(userName)
-        logging.info(totalBooks)
-        logging.info(totalPages)
+
+        userItem = UserItem()
+        userItem['UserName'] = userName
+        userItem['TotalBooks'] = totalBooks
+        userItem['TotalPages'] = totalPages
+        yield userItem
 
     # 从soup中获取username
     def getUserName(self, soup):
