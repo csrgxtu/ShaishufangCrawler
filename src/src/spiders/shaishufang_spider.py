@@ -34,8 +34,6 @@ class ShaishufangSpider(scrapy.Spider):
         totalBooks = self.getTotalBooks(soup)
 
         userItem = UserItem()
-        # logging.info(response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, ''))
-        # userItem['UserID'] = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         userItem['UID'] = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         userItem['UserName'] = userName
         userItem['TotalBooks'] = totalBooks
