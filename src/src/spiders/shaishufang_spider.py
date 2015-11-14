@@ -42,11 +42,11 @@ class ShaishufangSpider(scrapy.Spider):
     # 从soup中获取总页数
     def getTotalPages(self, soup):
         if not soup:
-            return 0
+            return 1
 
         if soup.find('ul', {'id': 'booksPage'}):
             if len(soup.find('ul', {'id': 'booksPage'}).find_all('li')) == 0:
-                return 0
+                return 1
 
             return int(soup.find('ul', {'id': 'booksPage'}).find_all('li')[-2].text)
 
