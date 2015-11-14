@@ -43,7 +43,7 @@ class ShaishufangSpider(scrapy.Spider):
         userItem['UserName'] = userName
         userItem['TotalBooks'] = totalBooks
         userItem['TotalPages'] = totalPages
-        # yield userItem
+        yield userItem
 
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
