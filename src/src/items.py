@@ -16,7 +16,7 @@ class UserItem(scrapy.Item):
 
 # 书籍的meta信息
 class BookItem(scrapy.Item):
-    BookID = scrapy.Field()
+    UID = scrapy.Field()
     UBID = scrapy.Field()
     BookName = scrapy.Field()
     Author = scrapy.Field()
