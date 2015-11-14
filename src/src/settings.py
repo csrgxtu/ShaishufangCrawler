@@ -84,3 +84,12 @@ COOKIES_DEBUG = True
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# MongoDB configuration
+ITEM_PIPELINES = ['src.pipelines.MongoDBPipeline', ]
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "shaishufang"
+MONGODB_USERS_COLLECTION = "Users"
+MONGODB_BOOKS_COLLECTION = "Books"
