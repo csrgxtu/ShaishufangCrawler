@@ -27,7 +27,7 @@ class ShaishufangSpider(scrapy.Spider):
 
     # build start_urls list first
     def __init__(self):
-        for i in range(2, 3):
+        for i in range(1, 6):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
