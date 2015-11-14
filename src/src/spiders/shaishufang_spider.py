@@ -1,7 +1,6 @@
 # coding=utf-8
 import scrapy
 from bs4 import BeautifulSoup
-import logging
 import re
 
 from src.items import UserItem, BookItem
