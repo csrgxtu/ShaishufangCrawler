@@ -3,6 +3,7 @@ import scrapy
 from bs4 import BeautifulSoup
 import re
 import logging
+from urlparse import urlparse
 
 from src.items import UserItem, BookItem
 
@@ -19,10 +20,12 @@ class ShaishufangSpider(scrapy.Spider):
     urlPostfix = '/status//category//friend/false'
 
     pagePostfix = '/friend/false/category//status//type//page/'
+    bookUrlPrefix = 'http://shaishufang.com/index.php/site/detail/uid/'
+    bookUrlPostfix = '/status//category/I/friend/false'
 
     # build start_urls list first
     def __init__(self):
-        for i in range(1, 2):
+        for i in range(2, 3):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
@@ -49,9 +52,42 @@ class ShaishufangSpider(scrapy.Spider):
 
     def parsePage(self, response):
         soup = BeautifulSoup(response.body)
+        uid = urlparse(response.url).path.split('/')[5]
 
         bids = self.getUbids(soup)
-        logging.info(bids)
+        for bid in bids:
+            url = self.bookUrlPrefix + uid + '/ubid/' + bid + self.bookUrlPostfix
+            logging.info(url)
+            yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
+
+    def parseBook(self, response):
+        soup = BeautifulSoup(response.body)
+        uid = urlparse(response.url).path.split('/')[5]
+        ubid = urlparse(response.url).path.split('/')[7]
+
+        ISBN = self.getISBN(soup)
+        if ISBN:
+            # BookItem 包含好多字段，这里只插入ISBN
+            bookItem = BookItem()
+            bookItem['ISBN'] = ISBN
+            bookItem['UID'] = uid
+            bookItem['UBID'] = ubid
+            yield bookItem
+
+    # 从书的详细页面获取ISBN
+    def getISBN(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'attr'}):
+            if len(soup.find('div', {'id': 'attr'}).find_all('li')) == 0:
+                return False
+            if "ISBN:" in soup.find('div', {'id': 'attr'}).find_all('li')[-1].text:
+                return str(soup.find('div', {'id': 'attr'}).find_all('li')[-1].text.replace('ISBN:', ''))
+            else:
+                return False
+
+        return False
 
     # 从书籍列表页面获取UBIDS
     def getUbids(self, soup):
