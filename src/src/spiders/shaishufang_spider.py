@@ -34,7 +34,7 @@ class ShaishufangSpider(scrapy.Spider):
     def __init__(self):
         self.dynamicProxies()
         logging.info(self.Proxies)
-        for i in range(2, 3):
+        for i in range(1, 279653):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):

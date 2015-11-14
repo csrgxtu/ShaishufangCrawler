@@ -106,3 +106,6 @@ DOWNLOADER_MIDDLEWARES = {
     # 'yourspider.randomproxy.RandomProxy': 100,
     'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
 }
+
+# for concurrency purpose
+CONCURRENT_REQUESTS = 1000
