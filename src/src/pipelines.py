@@ -7,7 +7,7 @@
 import pymongo
 from scrapy.conf import settings
 from scrapy.exceptions import DropItem
-from scrapy import log
+import logging
 
 class MongoDBPipeline(object):
     def __init__(self):
@@ -27,8 +27,7 @@ class MongoDBPipeline(object):
 
         if valid:
             self.collection.insert(dict(item))
-            log.msg("Question added to MongoDB database!",
-                level=log.DEBUG, spider=spider)
+            logging.info("User added to MongoDB database")
 
         return item
 
