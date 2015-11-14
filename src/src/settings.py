@@ -93,3 +93,8 @@ MONGODB_PORT = 27017
 MONGODB_DB = "shaishufang"
 MONGODB_USERS_COLLECTION = "Users"
 MONGODB_BOOKS_COLLECTION = "Books"
+
+# HTTP Proxy enabled
+DOWNLOADER_MIDDLEWARES = {
+'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 1,
+}

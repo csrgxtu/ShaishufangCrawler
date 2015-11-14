@@ -15,6 +15,9 @@ class ShaishufangSpider(scrapy.Spider):
     cookie = {
         'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'
     }
+    meta = {
+        'proxy': 'http://104.155.70.207:8888'
+    }
 
     urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
     urlPostfix = '/status//category//friend/false'
@@ -27,12 +30,12 @@ class ShaishufangSpider(scrapy.Spider):
 
     # build start_urls list first
     def __init__(self):
-        for i in range(1, 6):
+        for i in range(2, 3):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
+            yield scrapy.Request(self.start_urls[i], self.parse, meta=self.meta, cookies=self.cookie)
 
     def parse(self, response):
         soup = BeautifulSoup(response.body)
@@ -51,7 +54,7 @@ class ShaishufangSpider(scrapy.Spider):
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
             url = self.urlPrefix + UID + self.pagePostfix + str(page)
-            yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
+            yield scrapy.Request(url, self.parsePage, meta=self.meta, cookies=self.cookie)
 
     def parsePage(self, response):
         soup = BeautifulSoup(response.body)
@@ -60,7 +63,7 @@ class ShaishufangSpider(scrapy.Spider):
         bids = self.getUbids(soup)
         for bid in bids:
             url = self.bookUrlPrefix + uid + '/ubid/' + bid + self.bookUrlPostfix
-            yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
+            yield scrapy.Request(url, self.parseBook, meta=self.meta, cookies=self.cookie)
 
     def parseBook(self, response):
         soup = BeautifulSoup(response.body)

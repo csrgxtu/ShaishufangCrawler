@@ -20,7 +20,6 @@ class MongoDBPipeline(object):
         self.booksCollection = db[settings['MONGODB_BOOKS_COLLECTION']]
 
     def process_item(self, item, spider):
-        logging.info(spider.userOrBook)
         valid = True
         for data in item:
             if not data:
