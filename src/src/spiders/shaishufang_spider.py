@@ -1,4 +1,5 @@
 import scrapy
+from bs4 import BeautifulSoup
 
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
@@ -20,3 +21,43 @@ class ShaishufangSpider(scrapy.Spider):
         filename = '74557.html'
         with open(filename, 'wb') as f:
             f.write(response.body)
+
+    def userPaser(self, response):
+        soup = BeautifulSoup(response.body)
+
+        totalBooks = self.getTotalPageNum(soup)
+        pass
+
+    # 从soup中获取username
+    def getUserName(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'username'}):
+            return soup.find('div', {'id': 'username'}).find('span').text
+
+        return False
+
+    # 从soup中获取总页数
+    def getTotalPages(self, soup):
+        if not soup:
+            return 0
+
+        if soup.find('ul', {'id': 'booksPage'}):
+            if len(soup.find('ul', {'id': 'booksPage'}).find_all('li')) == 0:
+                return 0
+
+            return int(soup.find('ul', {'id': 'booksPage'}).find_all('li')[-2].text)
+
+        return 1
+
+    # 从soup中获取总藏书量
+    def getTotalBooks(self, soup):
+        if not soup:
+            return 0
+
+        if soup.find('ul', {'id': 'categoryList'}):
+            if soup.find('ul', {'id': 'categoryList'}).find('li'):
+                return int(re.sub(r'[^\x00-\x7F]+',' ',soup.find('ul', {'id': 'categoryList'}).find('li').find('a').text).strip())
+
+        return 0
