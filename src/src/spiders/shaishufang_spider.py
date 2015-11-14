@@ -2,6 +2,7 @@
 import scrapy
 from bs4 import BeautifulSoup
 import re
+import logging
 
 from src.items import UserItem, BookItem
 
@@ -14,12 +15,13 @@ class ShaishufangSpider(scrapy.Spider):
         'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'
     }
 
+    urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
+    urlPostfix = '/status//category//friend/false'
+
     # build start_urls list first
     def __init__(self):
-        urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
-        urlPostfix = '/status//category//friend/false'
         for i in range(1, 3):
-            self.start_urls.append(urlPrefix + str(i) + urlPostfix)
+            self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
@@ -32,6 +34,9 @@ class ShaishufangSpider(scrapy.Spider):
         totalBooks = self.getTotalBooks(soup)
 
         userItem = UserItem()
+        # logging.info(response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, ''))
+        # userItem['UserID'] = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
+        userItem['UID'] = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         userItem['UserName'] = userName
         userItem['TotalBooks'] = totalBooks
         userItem['TotalPages'] = totalPages
