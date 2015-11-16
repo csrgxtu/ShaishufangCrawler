@@ -44,7 +44,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
-        soup = BeautifulSoup(response.body)
+        soup = BeautifulSoup(response.body, "lxml")
         userName = self.getUserName(soup)
         totalPages = self.getTotalPages(soup)
         totalBooks = self.getTotalBooks(soup)
@@ -65,7 +65,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
     def parsePage(self, response):
-        soup = BeautifulSoup(response.body)
+        soup = BeautifulSoup(response.body, "lxml")
         uid = urlparse(response.url).path.split('/')[5]
 
         bids = self.getUbids(soup)
@@ -76,7 +76,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
 
     def parseBook(self, response):
-        soup = BeautifulSoup(response.body)
+        soup = BeautifulSoup(response.body, "lxml")
         uid = urlparse(response.url).path.split('/')[5]
         ubid = urlparse(response.url).path.split('/')[7]
 
