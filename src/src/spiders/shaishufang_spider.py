@@ -32,14 +32,14 @@ class ShaishufangSpider(scrapy.Spider):
 
     # build start_urls list first
     def __init__(self):
-        self.dynamicProxies()
+        # self.dynamicProxies()
         # for i in range(1, 279653):
         for i in range(1, 279653):
             self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            self.assignProxy()
+            # self.assignProxy()
             # yield scrapy.Request(self.start_urls[i], self.parse, meta=self.meta, cookies=self.cookie)
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
@@ -60,7 +60,7 @@ class ShaishufangSpider(scrapy.Spider):
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
             url = self.urlPrefix + UID + self.pagePostfix + str(page)
-            self.assignProxy()
+            # self.assignProxy()
             # yield scrapy.Request(url, self.parsePage, meta=self.meta, cookies=self.cookie)
             yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
@@ -71,7 +71,7 @@ class ShaishufangSpider(scrapy.Spider):
         bids = self.getUbids(soup)
         for bid in bids:
             url = self.bookUrlPrefix + uid + '/ubid/' + bid + self.bookUrlPostfix
-            self.assignProxy()
+            # self.assignProxy()
             # yield scrapy.Request(url, self.parseBook, meta=self.meta, cookies=self.cookie)
             yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
 
