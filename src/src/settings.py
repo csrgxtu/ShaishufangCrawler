@@ -100,12 +100,25 @@ RETRY_TIMES = 10
 # Retry on most error codes since proxies fail for different reasons
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # HTTP Proxy enabled
-# DOWNLOADER_MIDDLEWARES = {
-#     'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
-#     # Fix path to this module
-#     # 'yourspider.randomproxy.RandomProxy': 100,
-#     'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
-# }
+
+CRAWLERA_ENABLED = True
+CRAWLERA_USER = '1030833ed36a4926ba0cfed2d044c89a'
+CRAWLERA_PASS = ''
+DEFAULT_REQUEST_HEADERS = {
+  # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  # 'Accept-Language': 'zh-CN,zh;q=0.8',
+  'X-Crawlera-Cookies': 'disable'
+}
+
+DOWNLOADER_MIDDLEWARES = {
+    # 'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
+    # Fix path to this module
+    # 'src.randomproxy.RandomProxy': 100,
+    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    'scrapy_crawlera.CrawleraMiddleware': 600,
+}
+
+
 
 # for concurrency purpose
-CONCURRENT_REQUESTS = 1000
+# CONCURRENT_REQUESTS = 1000
