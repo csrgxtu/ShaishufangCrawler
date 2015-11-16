@@ -102,7 +102,7 @@ RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # HTTP Proxy enabled
 
 CRAWLERA_ENABLED = True
-CRAWLERA_USER = '1030833ed36a4926ba0cfed2d044c89a'
+CRAWLERA_USER = '04ec6cb7fd744be28ce4973a962b146d'
 CRAWLERA_PASS = ''
 DEFAULT_REQUEST_HEADERS = {
   # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
