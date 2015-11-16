@@ -31,7 +31,7 @@ NEWSPIDER_MODULE = 'src.spiders'
 
 # Disable cookies (enabled by default)
 # COOKIES_ENABLED=False
-COOKIES_DEBUG = True
+# COOKIES_DEBUG = True
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
@@ -109,10 +109,11 @@ DEFAULT_REQUEST_HEADERS = {
   # 'Accept-Language': 'zh-CN,zh;q=0.8',
   'X-Crawlera-Cookies': 'disable'
 }
-# CONCURRENT_REQUESTS = 32
-# CONCURRENT_REQUESTS_PER_DOMAIN = 32
-# AUTOTHROTTLE_ENABLED = False
-# DOWNLOAD_TIMEOUT = 600
+AUTOTHROTTLE_ENABLED= False
+CONCURRENT_REQUESTS = 8
+CONCURRENT_REQUESTS_PER_DOMAIN = 8
+AUTOTHROTTLE_ENABLED = False
+DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
     # 'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
