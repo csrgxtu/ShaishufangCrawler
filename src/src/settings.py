@@ -109,6 +109,10 @@ DEFAULT_REQUEST_HEADERS = {
   # 'Accept-Language': 'zh-CN,zh;q=0.8',
   'X-Crawlera-Cookies': 'disable'
 }
+CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
+AUTOTHROTTLE_ENABLED = False
+DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
     # 'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
