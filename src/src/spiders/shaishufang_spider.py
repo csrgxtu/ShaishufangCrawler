@@ -58,13 +58,12 @@ class ShaishufangSpider(scrapy.Spider):
         userItem['TotalPages'] = totalPages
         self.userOrBook = 'User'
         yield userItem
+        logging.info(userItem)
 
-        # UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
-        # for page in range(1, totalPages + 1):
-        #     url = self.urlPrefix + UID + self.pagePostfix + str(page)
-        #     # self.assignProxy()
-        #     # yield scrapy.Request(url, self.parsePage, meta=self.meta, cookies=self.cookie)
-        #     yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
+        UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
+        for page in range(1, totalPages + 1):
+            url = self.urlPrefix + UID + self.pagePostfix + str(page)
+            yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
     def parsePage(self, response):
         soup = BeautifulSoup(response.body, "lxml")
@@ -73,8 +72,6 @@ class ShaishufangSpider(scrapy.Spider):
         bids = self.getUbids(soup)
         for bid in bids:
             url = self.bookUrlPrefix + uid + '/ubid/' + bid + self.bookUrlPostfix
-            # self.assignProxy()
-            # yield scrapy.Request(url, self.parseBook, meta=self.meta, cookies=self.cookie)
             yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
 
     def parseBook(self, response):
@@ -91,24 +88,7 @@ class ShaishufangSpider(scrapy.Spider):
             bookItem['UBID'] = ubid
             self.userOrBook = 'Book'
             yield bookItem
-
-    # 动态获取HTTP Proxies， 并填充到Proxies中
-    def dynamicProxies(self):
-        # url = 'http://svip.kuaidaili.com/api/getproxy/?orderid=983980639044193&num=100&browser=1&protocol=1&method=1&sp1=1&quality=0&sort=0&format=json&sep=1'
-        url = 'http://svip.kuaidaili.com/api/getproxy/?orderid=983980639044193&num=5&browser=1&protocol=1&method=1&sp1=1&quality=0&sort=0&format=json&sep=1'
-        res = unirest.get(url, headers={"Accept": "application/json" })
-        for proxy in res.body['data']['proxy_list']:
-            self.Proxies.append('http://' + str(proxy))
-
-        # for debuging purpose
-        logging.info(self.Proxies)
-
-    # 给meta的proxy赋值
-    def assignProxy(self):
-        if len(self.Proxies) == 0:
-            self.dynamicProxies()
-
-        self.meta['proxy'] = self.Proxies.pop()
+            logging.info(bookItem)
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
