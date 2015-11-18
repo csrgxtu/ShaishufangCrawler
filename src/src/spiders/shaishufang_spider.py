@@ -159,6 +159,24 @@ class ShaishufangSpider(scrapy.Spider):
             if res.body['code'] == 200:
                 logging.info('Data Inserted: ' + json.dumps(params))
 
+            fileDict = {
+                'url': response.url,
+                'head': response.headers.to_string(),
+                'body': response.body,
+                'spider': self.name
+            }
+
+            fileUrl = 'http://192.168.100.3:5000/file'
+            params = {
+                'files': [
+                    fileDict
+                ]
+            }
+            res = unirest.put(fileUrl, headers=headers, params=json.dumps(params))
+            logging.info(res.body)
+            if res.body['code'] == 200:
+                logging.info('File Inserted: ' + res.body['data'][0])
+
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
         if not soup:
