@@ -85,18 +85,11 @@ NEWSPIDER_MODULE = 'src.spiders'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# MongoDB configuration
-ITEM_PIPELINES = ['src.pipelines.MongoDBPipeline', ]
-
-MONGODB_SERVER = "localhost"
-MONGODB_PORT = 27017
-MONGODB_DB = "shaishufang"
-MONGODB_USERS_COLLECTION = "Users"
-MONGODB_BOOKS_COLLECTION = "Books"
-
+## SETTING FOR CRAWLERA
 
 # Retry many times since proxies often fail
 RETRY_TIMES = 10
+DOWNLOAD_DELAY = 0
 # Retry on most error codes since proxies fail for different reasons
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # HTTP Proxy enabled
@@ -113,17 +106,9 @@ DEFAULT_REQUEST_HEADERS = {
 # CONCURRENT_REQUESTS = 1
 # CONCURRENT_REQUESTS_PER_DOMAIN = 1
 # AUTOTHROTTLE_ENABLED = False
-# DOWNLOAD_TIMEOUT = 600
+DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
-    # 'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
-    # Fix path to this module
-    # 'src.randomproxy.RandomProxy': 100,
-    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
     'scrapy_crawlera.CrawleraMiddleware': 600,
 }
-
-
-
-# for concurrency purpose
-# CONCURRENT_REQUESTS = 1000
