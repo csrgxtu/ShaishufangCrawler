@@ -5,6 +5,7 @@ import re
 import logging
 from urlparse import urlparse
 import unirest
+import json
 
 from src.items import UserItem, BookItem
 
@@ -37,8 +38,8 @@ class ShaishufangSpider(scrapy.Spider):
             "offset": 10,
             "spider": 'Shaishufang'
         }
-        response = unirest.post(url, headres=headers, params=params)
-        for url in response.body['data']:
+        res = unirest.post(url, headres=headers, params=params)
+        for url in res.body['data']:
             self.start_urls.append(url['url'])
 
     def start_requests(self):
@@ -46,19 +47,66 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
+        if response.status == 200:
+            url = 'http://192.168.100.3:5000/visitedurls'
+            headers = {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            }
+            params = {
+                "urls": [
+                    {"url": response.url, "spider": self.name}
+                ]
+            }
+            res = unirest.put(url, headers=headers, params=json.dumps(params))
+            if res.body['code'] == 200:
+                logging.info("Visisted Inserted: " + json.dumps(params))
+        else:
+            url = 'http://192.168.100.3:5000/deadurls'
+            headers = {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            }
+            params = {
+                "urls": [
+                    {"url": response.url, "spider": self.name}
+                ]
+            }
+            res = unirest.put(url, headers=headers, params=json.dumps(params))
+            if res.body['code'] == 200:
+                logging.info("Dead Inserted: " + json.dumps(params))
+
         soup = BeautifulSoup(response.body, "lxml")
         userName = self.getUserName(soup)
         totalPages = self.getTotalPages(soup)
         totalBooks = self.getTotalBooks(soup)
 
-        userItem = UserItem()
-        userItem['UID'] = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
-        userItem['UserName'] = userName
-        userItem['TotalBooks'] = totalBooks
-        userItem['TotalPages'] = totalPages
         self.userOrBook = 'User'
-        yield userItem
-        logging.info(userItem)
+        userDict = {
+            'UID': response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, ''),
+            'UserName': userName,
+            'TotalBooks': totalBooks,
+            'TotalPages': totalPages
+        }
+        url = 'http://192.168.100.3:5000/data'
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        params = {
+            'datas': [
+                {
+                    'url': response.url,
+                    'spider': self.name,
+                    'data': userDict
+                }
+            ]
+        }
+        res = unirest.put(url, headers=headers, params=json.dumps(params))
+        if res.body['code'] == 200:
+            logging.info("Data Inserted: " + json.dumps(params))
+
+        # logging.info(userItem)
 
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
@@ -88,7 +136,28 @@ class ShaishufangSpider(scrapy.Spider):
             bookItem['UBID'] = ubid
             self.userOrBook = 'Book'
             yield bookItem
-            logging.info(bookItem)
+            bookDict = {
+                'ISBN': ISBN,
+                'UID': uid,
+                'UBID': ubid
+            }
+            url = 'http://192.168.100.3:5000/data'
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            params = {
+                'datas': [
+                    {
+                        'url': response.url,
+                        'spider': self.name,
+                        'data': bookDict
+                    }
+                ]
+            }
+            res = unirest.put(url, headers=headers, params=json.dumps(params))
+            if res.body['code'] == 200:
+                logging.info('Data Inserted: ' + json.dumps(params))
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
