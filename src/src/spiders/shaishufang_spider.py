@@ -61,6 +61,22 @@ class ShaishufangSpider(scrapy.Spider):
             res = unirest.put(url, headers=headers, params=json.dumps(params))
             if res.body['code'] == 200:
                 logging.info("Visisted Inserted: " + json.dumps(params))
+
+            fileUrl = 'http://192.168.100.3:5000/file'
+            fileDict = {
+                'url': response.url,
+                'head': response.headers.to_string(),
+                'body': response.body,
+                'spider': self.name
+            }
+            params = {
+                'files': [
+                    fileDict
+                ]
+            }
+            res = unirest.put(fileUrl, headers=headers, params=json.dumps(params))
+            if res.body['code'] == 200:
+                logging.info('File Inserted: ' + res.body['data'][0])
         else:
             url = 'http://192.168.100.3:5000/deadurls'
             headers = {
@@ -173,7 +189,6 @@ class ShaishufangSpider(scrapy.Spider):
                 ]
             }
             res = unirest.put(fileUrl, headers=headers, params=json.dumps(params))
-            logging.info(res.body)
             if res.body['code'] == 200:
                 logging.info('File Inserted: ' + res.body['data'][0])
 
