@@ -7,7 +7,7 @@ from urlparse import urlparse
 import unirest
 import json
 
-from src.items import UserItem, BookItem
+# from src.items import UserItem, BookItem
 
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
@@ -28,8 +28,11 @@ class ShaishufangSpider(scrapy.Spider):
     userOrBook = 'User'
 
     # build start_urls list first
-    def __init__(self):
-        url = 'http://192.168.100.3:5000/unvisitedurls?start=0&offset=10&spider=Shaishufang'
+    def __init__(self, start=0, offset=10, *args, **kwargs):
+        super(ShaishufangSpider, self).__init__(*args, **kwargs)
+        logging.info(start)
+        logging.info(offset)
+        url = 'http://192.168.100.3:5000/unvisitedurls?start=' + str(start) + '&offset=' + str(offset) + '&spider=' + self.name
         headers = {
             "Accept": "application/json",
         }
@@ -146,12 +149,12 @@ class ShaishufangSpider(scrapy.Spider):
         ISBN = self.getISBN(soup)
         if ISBN:
             # BookItem 包含好多字段，这里只插入ISBN, UID, UBID
-            bookItem = BookItem()
-            bookItem['ISBN'] = ISBN
-            bookItem['UID'] = uid
-            bookItem['UBID'] = ubid
+            # bookItem = BookItem()
+            # bookItem['ISBN'] = ISBN
+            # bookItem['UID'] = uid
+            # bookItem['UBID'] = ubid
             self.userOrBook = 'Book'
-            yield bookItem
+            # yield bookItem
             bookDict = {
                 'ISBN': ISBN,
                 'UID': uid,
