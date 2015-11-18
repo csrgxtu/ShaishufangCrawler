@@ -16,10 +16,6 @@ class ShaishufangSpider(scrapy.Spider):
     cookie = {
         'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'
     }
-    Proxies = []
-    meta = {
-        'proxy': 'http://104.155.70.207:8888'
-    }
 
     urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
     urlPostfix = '/status//category//friend/false'
@@ -32,15 +28,21 @@ class ShaishufangSpider(scrapy.Spider):
 
     # build start_urls list first
     def __init__(self):
-        # self.dynamicProxies()
-        # for i in range(1, 279653):
-        for i in range(1, 279653):
-            self.start_urls.append(self.urlPrefix + str(i) + self.urlPostfix)
+        url = 'http://192.168.100.3:5000/unvisitedurls?start=0&offset=10&spider=Shaishufang'
+        headers = {
+            "Accept": "application/json",
+        }
+        params = {
+            "start": 0,
+            "offset": 10,
+            "spider": 'Shaishufang'
+        }
+        response = unirest.post(url, headres=headers, params=params)
+        for url in response.body['data']:
+            self.start_urls.append(url['url'])
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            # self.assignProxy()
-            # yield scrapy.Request(self.start_urls[i], self.parse, meta=self.meta, cookies=self.cookie)
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
@@ -57,12 +59,12 @@ class ShaishufangSpider(scrapy.Spider):
         self.userOrBook = 'User'
         yield userItem
 
-        UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
-        for page in range(1, totalPages + 1):
-            url = self.urlPrefix + UID + self.pagePostfix + str(page)
-            # self.assignProxy()
-            # yield scrapy.Request(url, self.parsePage, meta=self.meta, cookies=self.cookie)
-            yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
+        # UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
+        # for page in range(1, totalPages + 1):
+        #     url = self.urlPrefix + UID + self.pagePostfix + str(page)
+        #     # self.assignProxy()
+        #     # yield scrapy.Request(url, self.parsePage, meta=self.meta, cookies=self.cookie)
+        #     yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
     def parsePage(self, response):
         soup = BeautifulSoup(response.body, "lxml")
