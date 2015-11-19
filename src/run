@@ -3,5 +3,4 @@
 while :
 do
 	scrapy crawl Shaishufang -a start=0 -a offset=10
-  exit
 done
