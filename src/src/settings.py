@@ -95,20 +95,23 @@ RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # HTTP Proxy enabled
 
 #CRAWLERA_ENABLED = True
-#CRAWLERA_USER = '38dd92f5667f42308d20bbf677eebbf7'
+#CRAWLERA_USER = '04ec6cb7fd744be28ce4973a962b146d'
 #CRAWLERA_PASS = ''
-DEFAULT_REQUEST_HEADERS = {
+#DEFAULT_REQUEST_HEADERS = {
   # 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
   # 'Accept-Language': 'zh-CN,zh;q=0.8',
-  'X-Crawlera-Cookies': 'disable'
-}
+#  'X-Crawlera-Cookies': 'disable'
+#}
 #AUTOTHROTTLE_ENABLED= False
 #CONCURRENT_REQUESTS = 16
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #AUTOTHROTTLE_ENABLED = False
-#DOWNLOAD_TIMEOUT = 600
+DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
 #    'scrapy_crawlera.CrawleraMiddleware': 600,
 }
+
+LOG_LEVEL = 'INFO'
+CONCURRENT_REQUESTS=8
