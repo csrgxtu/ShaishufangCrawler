@@ -20,7 +20,7 @@ API = 'http://192.168.100.3:5000/unvisitedurls'
 # API = 'http://127.0.0.1:5000/unvisitedurls'
 urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
 urlPostfix = '/status//category//friend/false'
-for uid in range(1, 2):
+for uid in range(1, 279653):
     url = urlPrefix + str(uid) + urlPostfix
     params = {
         "urls": [

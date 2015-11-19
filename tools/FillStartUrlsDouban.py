@@ -19,7 +19,7 @@ headers = {
 # API = 'http://192.168.100.3:5000/unvisitedurls'
 API = 'http://127.0.0.1:5000/unvisitedurls'
 urlPrefix = 'http://book.douban.com/isbn/'
-with open('/home/archer/Documents/BeautifulReading/src/AmazonScraber/isbns.data', 'r') as MH:
+with open('isbns.data', 'r') as MH:
     for line in MH:
         isbn = line.replace("\n", "")
         url = urlPrefix + isbn
