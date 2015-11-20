@@ -88,10 +88,10 @@ NEWSPIDER_MODULE = 'src.spiders'
 ## SETTING FOR CRAWLERA
 
 # Retry many times since proxies often fail
-RETRY_TIMES = 10
+# RETRY_TIMES = 10
 DOWNLOAD_DELAY = 0
 # Retry on most error codes since proxies fail for different reasons
-RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+# RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # HTTP Proxy enabled
 
 #CRAWLERA_ENABLED = True
@@ -106,13 +106,13 @@ RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 #CONCURRENT_REQUESTS = 16
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #AUTOTHROTTLE_ENABLED = False
-DOWNLOAD_TIMEOUT = 600
+# DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
     # 'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
 #    'scrapy_crawlera.CrawleraMiddleware': 600,
 }
 
-LOG_LEVEL = 'INFO'
-CONCURRENT_REQUESTS=8
+# LOG_LEVEL = 'INFO'
+# CONCURRENT_REQUESTS=8
