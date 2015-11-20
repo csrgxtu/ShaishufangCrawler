@@ -8,7 +8,6 @@
 import unirest
 import json
 from scrapy.conf import settings
-import logging
 
 BaseUrl = settings['API_HOST']
 Headers = {

@@ -4,16 +4,19 @@ from bs4 import BeautifulSoup
 import re
 import logging
 from urlparse import urlparse
-import unirest
-import json
+from ShaishufangHelper import *
+from scrapy.conf import settings
+from scrapy import signals
+from scrapy.xlib.pydispatch import dispatcher
 
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
     start_urls = []
+    handle_httpstatus_list = [404, 403]
 
     cookie = {
-        'shaishufang': 'Mjc5MTYwfGZmY2VmYzIyYmMxZjhlZThjNzgzYjFlOGIxOWUwODg2'
+        'shaishufang': settings['COOKIE']
     }
 
     urlPrefix = 'http://shaishufang.com/index.php/site/main/uid/'
@@ -23,16 +26,21 @@ class ShaishufangSpider(scrapy.Spider):
     bookUrlPrefix = 'http://shaishufang.com/index.php/site/detail/uid/'
     bookUrlPostfix = '/status//category/I/friend/false'
 
+    UnvisitedUrls = {'urls': []}
+    VisitedUrls = {'urls': []}
+    DeadUrls = {'urls': []}
+    Datas = {'datas': []}
+    Files = {'files': []}
+
     # build start_urls list first
     def __init__(self, start=0, offset=10, *args, **kwargs):
         super(ShaishufangSpider, self).__init__(*args, **kwargs)
-        url = 'http://192.168.100.3:5000/unvisitedurls?start=' + str(start) + '&offset=' + str(offset) + '&spider=' + self.name
-        headers = {
-            "Accept": "application/json",
-        }
-        res = unirest.post(url, headres=headers)
-        for url in res.body['data']:
-            self.start_urls.append(url['url'])
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
+        self.start_urls = retrieveUnvisitedUrls(start, offset, self.name)
+
+    # when closeing, put all data to master
+    def spider_closed(self, spider):
+        pass
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
@@ -40,81 +48,35 @@ class ShaishufangSpider(scrapy.Spider):
 
     def parse(self, response):
         if response.status >= 200 and response.status < 400:
-            url = 'http://192.168.100.3:5000/visitedurls'
-            headers = {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            }
-            params = {
-                "urls": [
-                    {"url": response.url, "spider": self.name}
-                ]
-            }
-            res = unirest.put(url, headers=headers, params=json.dumps(params))
-            if res.body['code'] == 200:
-                logging.info("Visisted Inserted: " + json.dumps(params))
+            self.VisitedUrls['urls'].append({'url': response.url, 'spider': self.name})
 
-            fileUrl = 'http://192.168.100.3:5000/file'
             fileDict = {
                 'url': response.url,
                 'head': response.headers.to_string(),
                 'body': response.body,
                 'spider': self.name
             }
-            params = {
-                'files': [
-                    fileDict
-                ]
-            }
-            res = unirest.put(fileUrl, headers=headers, params=json.dumps(params))
-            if res.body['code'] == 200:
-                logging.info('File Inserted: ' + res.body['data'][0])
+            self.Files['files'].append(fileDict)
         else:
-            url = 'http://192.168.100.3:5000/deadurls'
-            headers = {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            }
-            params = {
-                "urls": [
-                    {"url": response.url, "spider": self.name}
-                ]
-            }
-            res = unirest.put(url, headers=headers, params=json.dumps(params))
-            if res.body['code'] == 200:
-                logging.info("Dead Inserted: " + json.dumps(params))
+            self.DeadUrls['urls'].append({'url': response.url, 'spider': self.name})
 
-        soup = BeautifulSoup(response.body, "lxml")
+        soup = BeautifulSoup(response.body, 'lxml')
         userName = self.getUserName(soup)
         totalPages = self.getTotalPages(soup)
         totalBooks = self.getTotalBooks(soup)
 
-        self.userOrBook = 'User'
         userDict = {
             'UID': response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, ''),
             'UserName': userName,
             'TotalBooks': totalBooks,
             'TotalPages': totalPages
         }
-        url = 'http://192.168.100.3:5000/data'
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+        dataDict = {
+            'url': response.url,
+            'spider': self.name,
+            'data': userDict
         }
-        params = {
-            'datas': [
-                {
-                    'url': response.url,
-                    'spider': self.name,
-                    'data': userDict
-                }
-            ]
-        }
-        res = unirest.put(url, headers=headers, params=json.dumps(params))
-        if res.body['code'] == 200:
-            logging.info("Data Inserted: " + json.dumps(params))
-
-        # logging.info(userItem)
+        self.Datas['datas'].append(dataDict)
 
         UID = response.url.replace(self.urlPrefix, '').replace(self.urlPostfix, '')
         for page in range(1, totalPages + 1):
@@ -122,7 +84,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
     def parsePage(self, response):
-        soup = BeautifulSoup(response.body, "lxml")
+        soup = BeautifulSoup(response.body, 'lxml')
         uid = urlparse(response.url).path.split('/')[5]
 
         bids = self.getUbids(soup)
@@ -131,41 +93,23 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(url, self.parseBook, cookies=self.cookie)
 
     def parseBook(self, response):
-        soup = BeautifulSoup(response.body, "lxml")
+        soup = BeautifulSoup(response.body, 'lxml')
         uid = urlparse(response.url).path.split('/')[5]
         ubid = urlparse(response.url).path.split('/')[7]
 
         ISBN = self.getISBN(soup)
         if ISBN:
-            # BookItem 包含好多字段，这里只插入ISBN, UID, UBID
-            # bookItem = BookItem()
-            # bookItem['ISBN'] = ISBN
-            # bookItem['UID'] = uid
-            # bookItem['UBID'] = ubid
-            self.userOrBook = 'Book'
-            # yield bookItem
             bookDict = {
                 'ISBN': ISBN,
                 'UID': uid,
                 'UBID': ubid
             }
-            url = 'http://192.168.100.3:5000/data'
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+            dataDict = {
+                'url': response.url,
+                'spider': self.name,
+                'data': bookDict
             }
-            params = {
-                'datas': [
-                    {
-                        'url': response.url,
-                        'spider': self.name,
-                        'data': bookDict
-                    }
-                ]
-            }
-            res = unirest.put(url, headers=headers, params=json.dumps(params))
-            if res.body['code'] == 200:
-                logging.info('Data Inserted: ' + json.dumps(params))
+            self.Datas['datas'].append(dataDict)
 
             fileDict = {
                 'url': response.url,
@@ -173,16 +117,8 @@ class ShaishufangSpider(scrapy.Spider):
                 'body': response.body,
                 'spider': self.name
             }
+            self.Files['files'].append(fileDict)
 
-            fileUrl = 'http://192.168.100.3:5000/file'
-            params = {
-                'files': [
-                    fileDict
-                ]
-            }
-            res = unirest.put(fileUrl, headers=headers, params=json.dumps(params))
-            if res.body['code'] == 200:
-                logging.info('File Inserted: ' + res.body['data'][0])
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
