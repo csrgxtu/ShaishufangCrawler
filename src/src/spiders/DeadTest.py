@@ -13,7 +13,7 @@ class DeadtestSpider(scrapy.Spider):
     name = "Deadtest"
     allowed_domains = ["shaishufang.com"]
     start_urls = []
-    handle_httpstatus_list = [404]
+    handle_httpstatus_list = [404, 403]
 
     # build start_urls list first
     def __init__(self, url, *args, **kwargs):

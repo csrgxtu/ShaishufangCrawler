@@ -7,8 +7,6 @@ from urlparse import urlparse
 import unirest
 import json
 
-# from src.items import UserItem, BookItem
-
 class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
@@ -25,23 +23,14 @@ class ShaishufangSpider(scrapy.Spider):
     bookUrlPrefix = 'http://shaishufang.com/index.php/site/detail/uid/'
     bookUrlPostfix = '/status//category/I/friend/false'
 
-    userOrBook = 'User'
-
     # build start_urls list first
     def __init__(self, start=0, offset=10, *args, **kwargs):
         super(ShaishufangSpider, self).__init__(*args, **kwargs)
-        logging.info(start)
-        logging.info(offset)
         url = 'http://192.168.100.3:5000/unvisitedurls?start=' + str(start) + '&offset=' + str(offset) + '&spider=' + self.name
         headers = {
             "Accept": "application/json",
         }
-        params = {
-            "start": 0,
-            "offset": 10,
-            "spider": 'Shaishufang'
-        }
-        res = unirest.post(url, headres=headers, params=params)
+        res = unirest.post(url, headres=headers)
         for url in res.body['data']:
             self.start_urls.append(url['url'])
 
@@ -50,7 +39,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
-        if response.status == 200:
+        if response.status >= 200 and response.status < 400:
             url = 'http://192.168.100.3:5000/visitedurls'
             headers = {
                 'Accept': 'application/json',
