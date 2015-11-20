@@ -7,8 +7,10 @@
 # Produced By BR
 import unirest
 import json
+from scrapy.conf import settings
+import logging
 
-BaseUrl = 'http://127.0.0.1:5000/'
+BaseUrl = settings['API_HOST']
 Headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'

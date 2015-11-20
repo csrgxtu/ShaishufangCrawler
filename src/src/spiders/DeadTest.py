@@ -6,7 +6,6 @@ import logging
 from urlparse import urlparse
 import unirest
 import json
-
 # from src.items import UserItem, BookItem
 
 class DeadtestSpider(scrapy.Spider):
