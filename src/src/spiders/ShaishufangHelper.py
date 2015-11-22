@@ -10,6 +10,7 @@ import json
 from scrapy.conf import settings
 
 BaseUrl = settings['API_HOST']
+# BaseUrl = 'http://localhost:5000/'
 Headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'

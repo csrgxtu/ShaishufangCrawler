@@ -40,7 +40,19 @@ class ShaishufangSpider(scrapy.Spider):
 
     # when closeing, put all data to master
     def spider_closed(self, spider):
-        pass
+        logging.info(len(self.VisitedUrls))
+        logging.info(len(self.Datas))
+        logging.info(len(self.Files))
+        logging.info(len(self.DeadUrls))
+        putVisitedUrls(self.VisitedUrls)
+        putDatas(self.Datas)
+        putDeadUrls(self.DeadUrls)
+        putFiles(self.Files)
+        # logging.info(self.VisitedUrls)
+        # logging.info(self.Datas)
+        # logging.info(self.Files)
+        # logging.info(self.DeadUrls)
+        # pass
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
