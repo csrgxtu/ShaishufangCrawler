@@ -13,7 +13,7 @@ class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
     start_urls = []
-    handle_httpstatus_list = [404, 403]
+    handle_httpstatus_list = [404, 403, 407, 502, 503, 505]
 
     cookie = {
         'shaishufang': settings['COOKIE']
@@ -40,20 +40,19 @@ class ShaishufangSpider(scrapy.Spider):
 
     # when closeing, put all data to master
     def spider_closed(self, spider):
-        logging.info(len(self.VisitedUrls))
-        logging.info(len(self.Datas))
-        logging.info(len(self.Files))
-        logging.info(len(self.DeadUrls))
-        # logging.info(self.Files)
-        putVisitedUrls(self.VisitedUrls)
-        putDatas(self.Datas)
-        putDeadUrls(self.DeadUrls)
-        putFiles(self.Files)
-        # logging.info(self.VisitedUrls)
-        # logging.info(self.Datas)
-        # logging.info(self.Files)
-        # logging.info(self.DeadUrls)
-        # pass
+        if len(self.VisitedUrls['urls']) > 0:
+            putVisitedUrls(self.VisitedUrls)
+        if len(self.Datas['datas']) > 0:
+            putDatas(self.Datas)
+        if len(self.Files['files']) > 0:
+            putFiles(self.Files)
+        if len(self.DeadUrls['urls']):
+            putDeadUrls(self.DeadUrls)
+
+        logging.info('Inserted VisitedUrls: ' + str(len(self.VisitedUrls)))
+        logging.info('Inserted Datas: ' + str(len(self.Datas)))
+        logging.info('Inserted Files: ' + str(len(self.Files)))
+        logging.info('Inserted DeadUrls: ' + str(len(self.DeadUrls)))
 
     def start_requests(self):
         for i in range(len(self.start_urls)):

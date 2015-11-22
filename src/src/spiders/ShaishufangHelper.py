@@ -19,6 +19,7 @@ Headers = {
 # getUrls will get urls from master
 def getUnvisitedUrls(start, offset, spider):
     url = BaseUrl + 'unvisitedurls?start=' + str(start) + '&offset=' + str(offset) + '&spider=' + spider
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.get(url, headers=Headers)
     if res.body['code'] != 200:
         return []
@@ -35,6 +36,7 @@ def getUnvisitedUrls(start, offset, spider):
 # retrieveUrls will retrieve urls from master
 def retrieveUnvisitedUrls(start, offset, spider):
     url = BaseUrl + 'unvisitedurls?start=' + str(start) + '&offset=' + str(offset) + '&spider=' + spider
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.post(url, headers=Headers)
     if res.body['code'] != 200:
         return []
@@ -52,6 +54,7 @@ def retrieveUnvisitedUrls(start, offset, spider):
 # data: {'urls': [{'url': 'http://w.g.com', 'spider': 'Shaishufan'}]}
 def putUnvisitedUrls(data):
     url = BaseUrl + 'unvisitedurls'
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
     if res.body['code'] != 200:
@@ -71,6 +74,7 @@ def putUnvisitedUrls(data):
 # data: {'urls': [{'url': 'http://w.g.com', 'spider': 'Shaishufan'}]}
 def putVisitedUrls(data):
     url = BaseUrl + 'visitedurls'
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
     if res.body['code'] != 200:
@@ -82,6 +86,7 @@ def putVisitedUrls(data):
 # data: {'urls': [{'url': 'http://w.g.com', 'spider': 'Shaishufang'}]}
 def putDeadUrls(data):
     url = BaseUrl + 'deadurls'
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
     if res.body['code'] != 200:
@@ -98,6 +103,7 @@ def putDeadUrls(data):
 # dataItem: your own dict
 def putDatas(data):
     url = BaseUrl + 'data'
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
     if res.body['code'] != 200:
@@ -113,9 +119,9 @@ def putDatas(data):
 # }
 def putFiles(data):
     url = BaseUrl + 'file'
+    unirest.timeout(180) # time out 180 same with scrapy download middlewares
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
-    print res.body
     if res.body['code'] != 200:
         return False
 
