@@ -44,6 +44,7 @@ class ShaishufangSpider(scrapy.Spider):
         logging.info(len(self.Datas))
         logging.info(len(self.Files))
         logging.info(len(self.DeadUrls))
+        # logging.info(self.Files)
         putVisitedUrls(self.VisitedUrls)
         putDatas(self.Datas)
         putDeadUrls(self.DeadUrls)

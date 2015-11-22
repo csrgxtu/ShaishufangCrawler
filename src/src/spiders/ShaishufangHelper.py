@@ -9,8 +9,8 @@ import unirest
 import json
 from scrapy.conf import settings
 
-BaseUrl = settings['API_HOST']
-# BaseUrl = 'http://localhost:5000/'
+# BaseUrl = settings['API_HOST']
+BaseUrl = 'http://localhost:5000/'
 Headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -115,6 +115,7 @@ def putFiles(data):
     url = BaseUrl + 'file'
     res = unirest.put(url, headers=Headers, params=json.dumps(data))
 
+    print res.body
     if res.body['code'] != 200:
         return False
 
