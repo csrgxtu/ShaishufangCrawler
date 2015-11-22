@@ -13,7 +13,7 @@ class ShaishufangSpider(scrapy.Spider):
     name = "Shaishufang"
     allowed_domains = ["shaishufang.com"]
     start_urls = []
-    handle_httpstatus_list = [404, 403, 407, 502, 503, 505]
+    handle_httpstatus_list = [301, 302, 404, 403, 407, 502, 503, 505]
 
     cookie = {
         'shaishufang': settings['COOKIE']
@@ -59,7 +59,7 @@ class ShaishufangSpider(scrapy.Spider):
             yield scrapy.Request(self.start_urls[i], self.parse, cookies=self.cookie)
 
     def parse(self, response):
-        if response.status >= 200 and response.status < 400:
+        if response.status >= 200 and response.status < 300:
             self.VisitedUrls['urls'].append({'url': response.url, 'spider': self.name})
 
             fileDict = {
