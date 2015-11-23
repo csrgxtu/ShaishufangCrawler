@@ -49,10 +49,10 @@ class ShaishufangSpider(scrapy.Spider):
         if len(self.DeadUrls['urls']):
             putDeadUrls(self.DeadUrls)
 
-        logging.info('Inserted VisitedUrls: ' + str(len(self.VisitedUrls)))
-        logging.info('Inserted Datas: ' + str(len(self.Datas)))
-        logging.info('Inserted Files: ' + str(len(self.Files)))
-        logging.info('Inserted DeadUrls: ' + str(len(self.DeadUrls)))
+        logging.info('Inserted VisitedUrls: ' + str(len(self.VisitedUrls['urls'])))
+        logging.info('Inserted Datas: ' + str(len(self.Datas['datas'])))
+        logging.info('Inserted Files: ' + str(len(self.Files['files'])))
+        logging.info('Inserted DeadUrls: ' + str(len(self.DeadUrls['urls'])))
 
     def start_requests(self):
         for i in range(len(self.start_urls)):

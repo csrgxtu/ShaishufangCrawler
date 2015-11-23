@@ -2,5 +2,5 @@
 
 while :
 do
-	scrapy crawl Shaishufang -a start=0 -a offset=10
+	scrapy crawl Shaishufang -a start=0 -a offset=8
 done
