@@ -1,14 +1,14 @@
 import re
 import random
 import base64
-from scrapy import log
+import logging
 
 from urllib2 import urlopen
 
-url  = "http://svip.kuaidaili.com/api/getproxy/?orderid=983980639044193&num=10&browser=1&protocol=1&method=1&sp1=1&quality=0&sort=0&format=json&sep=1"
+url  = "http://svip.kuaidaili.com/api/getproxy/?orderid=983980639044193&num=5&browser=1&protocol=1&method=1&sp1=1&quality=0&sort=0&format=json&sep=1"
 
 def updateIPs(url):
-    
+
     dictproxies = {}
 
     req  = urlopen(url)
@@ -34,6 +34,7 @@ class RandomProxy(object):
         proxy_address = random.choice(proxies.keys()) # "http://YOUR_PROXY_IP:PORT"
         proxy_user_pass = proxies[proxy_address]      # "USERNAME:PASSWORD"
         request.meta['proxy'] = proxy_address         # "http://YOUR_PROXY_IP:PORT"
+        logging.info(proxy_address)
 
         # Use the following lines if your proxy requires authentication
         if proxy_user_pass:
