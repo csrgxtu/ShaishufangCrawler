@@ -59,13 +59,20 @@ def readmatricefromfile(inputFile):
 #
 # @param inputFile
 # @return lst 2 dim
-def loadMatrixFromFile(inputFile):
+def loadMatrixFromFileUTF8(inputFile):
   res = []
   with codecs.open(inputFile, 'r', 'utf-8') as myFile:
     for line in myFile:
       res.append(line.rstrip().split(','))
   return res
 
+def loadMatrixFromFile(inputFile):
+    res = []
+    with open(inputFile, 'r') as myFile:
+      for line in myFile:
+        res.append(line.rstrip().split(','))
+
+    return res
 # saveMatrixToFile
 # save an string matrix to file
 #
