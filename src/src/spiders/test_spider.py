@@ -130,8 +130,8 @@ class TestSpider(scrapy.Spider):
             if len(soup.find('div', {'id': 'attr'}).find_all('li')) == 0:
                 return False
 
-            if "出版社:" in soup.find('div', {'id': 'attr'}).find_all('li')[1].text:
-                return str(soup.find('div', {'id': 'attr'}).find_all('li')[-1].text.replace('出版社:', ''))
+            # if "出版社:" in soup.find('div', {'id': 'attr'}).find_all('li')[1].text:
+            return soup.find('div', {'id': 'attr'}).find_all('li')[1].text
 
         return False
 

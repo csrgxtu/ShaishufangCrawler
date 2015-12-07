@@ -8,6 +8,7 @@
 #
 # Produced By CSRGXTU
 from numpy import loadtxt
+import codecs
 
 # str2file
 # save string to file
@@ -72,9 +73,9 @@ def loadMatrixFromFile(inputFile):
 # @param matrix
 # @return noe
 def saveMatrixToFile(outputFile, matrix):
-  with open(outputFile, 'w') as myFile:
+  with codecs.open(outputFile, 'w', 'utf-8') as myFile:
     for row in matrix:
-      myFile.write(','.join([str(x) for x in row]) + '\n')
+      myFile.write(','.join([x for x in row]) + '\n')
     myFile.close()
 
 def appendMatrixToFile(outputFile, matrix):
