@@ -9,7 +9,7 @@ import logging
 from urlparse import urlparse
 import unirest
 import json
-from Utility import saveLstToFile
+from Utility import saveLstToFile, saveMatrixToFile
 
 class TestSpider(scrapy.Spider):
     name = "Test"
@@ -28,6 +28,7 @@ class TestSpider(scrapy.Spider):
     bookUrlPostfix = '/status//category/I/friend/false'
 
     ISBNS = []
+    Books = []
     UID = None
 
     # build start_urls list first
@@ -68,21 +69,31 @@ class TestSpider(scrapy.Spider):
         uid = urlparse(response.url).path.split('/')[5]
         ubid = urlparse(response.url).path.split('/')[7]
 
-        ISBN = self.getISBN(soup)
+        # ISBN = self.getISBN(soup)
         # logging.info(uid + ':' + ubid + ':' + ISBN)
-        self.ISBNS.append(ISBN)
+        # self.ISBNS.append(ISBN)
         # if ISBN:
             # BookItem 包含好多字段，这里只插入ISBN, UID, UBID
+        bookName = self.getBookName(soup)
+        authors = self.getAuthors(soup)
+        tmpLst = []
+        if bookName:
+            tmpLst.append(bookName)
+        else:
+            tmpLst.append(False)
 
-    # def __del__(self):
-    #     logging.info("spider's destructor")
-    #     logging.info(self.ISBNS)
-    #     # pass
+        if authors:
+            tmpLst.append(authors)
+        else:
+            tmpLst.append(False)
+
+        self.Books.append(tmpLst)
 
     def spider_closed(self, spider):
         # logging.info("Spider's destructor")
-        logging.info(self.ISBNS)
-        saveLstToFile(self.UID + '.csv', self.ISBNS)
+        # logging.info(self.ISBNS)
+        # saveLstToFile(self.UID + '.csv', self.ISBNS)
+        saveMatrixToFile(self.UID + '.csv', self.Books)
 
     # 从书的详细页面获取ISBN
     def getISBN(self, soup):
@@ -96,6 +107,31 @@ class TestSpider(scrapy.Spider):
                 return str(soup.find('div', {'id': 'attr'}).find_all('li')[-1].text.replace('ISBN:', ''))
             else:
                 return False
+
+        return False
+
+    # 从书籍的详细页面获取书籍名称
+    def getBookName(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'attr'}):
+            if soup.find('div', {'id': 'attr'}).find('h2'):
+                return soup.find('div', {'id': 'attr'}).find('h2').text
+
+        return False
+
+    # 从书籍的详细页面获取作者
+    def getAuthors(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'attr'}):
+            if len(soup.find('div', {'id': 'attr'}).find_all('li')) == 0:
+                return False
+
+            if "出版社:" in soup.find('div', {'id': 'attr'}).find_all('li')[1].text:
+                return str(soup.find('div', {'id': 'attr'}).find_all('li')[-1].text.replace('出版社:', ''))
 
         return False
 
