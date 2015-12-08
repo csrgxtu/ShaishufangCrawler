@@ -6,4 +6,3 @@ if [ "$#" -ne 1 ]; then
 fi
 
 scrapy crawl ShaishufangAPI -a uid=$1
-#python ReverseIsbn.py $1
