@@ -33,7 +33,7 @@ DOWNLOADER_MIDDLEWARES = {
     # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
 #    'scrapy_crawlera.CrawleraMiddleware': 600,
     # 'src.randomproxy.RandomProxy': 100,
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
 }
 
 # LOG_LEVEL = 'INFO'

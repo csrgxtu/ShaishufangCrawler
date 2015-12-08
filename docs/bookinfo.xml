@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+    <code>10000</code>
+    <request>bookroom/books/list</request>
+    <sub_req></sub_req>
+    <result>
+        <total>9678</total>
+        <books>
+            <item>
+                <bid>5874956</bid>
+                <name>如果你想当总统(2014版)</name>
+                <isbn>9787513310598</isbn>
+                <img>http://shaishufang.com/assets/books/s/10/70/UP9SG2LU.jpg</img>
+                <shortcategory>I</shortcategory>
+                <categoryname>文学</categoryname>
+                <author>朱蒂丝•圣乔治</author>
+                <publictime>2014-01-01</publictime>
+                <press>新星出版社</press>
+                <desc>《如果你想当总统……》是2001年度凯迪克金牌奖获奖绘本，将美国过往总统以各种各样有趣的角度介绍给读者。当总统有好处有坏处，总统都叫什么名字，他们出生的房子、体型、身高、年龄、个性、外表、兄弟姐妹、血缘关系……林林种种，都是从普通人的角度来讲总统的趣事逸闻，读来亲切、幽默。故事收尾部分，讲述了几位最为杰出的总统的政治事迹，如托马斯•杰斐逊购买路易斯安那，极大地扩大美国的国土面积；富兰克林•罗斯福带领人民过上富裕幸福的生活……以乐观、自豪的语调，道出总统职位被赋予的崇高使命和责任。&lt;br&gt;&lt;br&gt;海报：&lt;br&gt;&lt;br/&gt;&lt;img src=http://g-ec4.images-amazon.com/images/G/28/BOOK-Catalog/content/B00GZC4IQE_01_amzn.jpg&gt;</desc>
+            </item>
+            <item>
+                <bid>5993682</bid>
+                <name>如果你想看鲸鱼</name>
+                <isbn>9787556801411</isbn>
+                <img>http://shaishufang.com/assets/books/s/42/30/C0p4bJk2.jpg</img>
+                <shortcategory>I</shortcategory>
+                <categoryname>文学</categoryname>
+                <author>(美)埃琳·斯蒂德 图</author>
+                <publictime>2014-10</publictime>
+                <press>中国出版集团</press>
+                <desc>凭借《阿莫的生病日》荣获凯迪克金奖的插画家埃琳·斯蒂德，与作家朱莉·福利亚诺继《接着，春天来了》之后，又一次共同创作了这本《如果你想看鲸鱼》，讲述了一个关于“专注”的故事。
+如果你想看鲸鱼，你要知道不能去看什么。粉红玫瑰，鹈鹕，可能会出现的海盗……如果你想看鲸鱼，你必须要一直盯着海面，等待，等待，继续等待……</desc>
+            </item>
+        </books>
+    </result>
+</response>
