@@ -11,14 +11,15 @@ class ShaishufangAPISpider(scrapy.Spider):
     name = "ShaishufangAPI"
     start_urls = []
 
-    #http_user = '279160'
-    #http_pass = '01621b19614a7ce34a2d82177b0f3469'
+    http_user = '279160'
+    http_pass = '01621b19614a7ce34a2d82177b0f3469'
 
     ISBNS = []
     UID = None
     TotalBooks = 0
 
-    Headers = {'Authorization': 'Basic Mjc5MTYwOjAxNjIxYjE5NjE0YTdjZTM0YTJkODIxNzdiMGYzNDY5'}
+    #Headers = {'Authorization': 'Basic Mjc5MTYwOjAxNjIxYjE5NjE0YTdjZTM0YTJkODIxNzdiMGYzNDY5'}
+    Headers = {}
 
     # APILogin = 'http://121.41.60.81/index.php/api2/account/verify_credentials/'
     APIPrefix = 'http://121.41.60.81/index.php/api2/bookroom/books/list?uid='
