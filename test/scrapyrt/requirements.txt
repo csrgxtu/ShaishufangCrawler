@@ -1,0 +1,3 @@
+Scrapy>=1.0.0
+service-identity>=1.0.0
+demjson
