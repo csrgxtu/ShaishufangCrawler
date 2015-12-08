@@ -29,11 +29,11 @@ DOWNLOAD_DELAY = 0
 #DOWNLOAD_TIMEOUT = 600
 
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
+#    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
     # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
 #    'scrapy_crawlera.CrawleraMiddleware': 600,
-    'src.randomproxy.RandomProxy': 100,
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+#    'src.randomproxy.RandomProxy': 100,
+#    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
 }
 
 LOG_LEVEL = 'INFO'
