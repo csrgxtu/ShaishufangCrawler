@@ -11,12 +11,14 @@ class ShaishufangAPISpider(scrapy.Spider):
     name = "ShaishufangAPI"
     start_urls = []
 
-    http_user = '279160'
-    http_pass = '01621b19614a7ce34a2d82177b0f3469'
+    #http_user = '279160'
+    #http_pass = '01621b19614a7ce34a2d82177b0f3469'
 
     ISBNS = []
     UID = None
     TotalBooks = 0
+
+    Headers = {'Authorization': 'Basic Mjc5MTYwOjAxNjIxYjE5NjE0YTdjZTM0YTJkODIxNzdiMGYzNDY5'}
 
     # APILogin = 'http://121.41.60.81/index.php/api2/account/verify_credentials/'
     APIPrefix = 'http://121.41.60.81/index.php/api2/bookroom/books/list?uid='
@@ -32,7 +34,7 @@ class ShaishufangAPISpider(scrapy.Spider):
 
     def start_requests(self):
         for i in range(len(self.start_urls)):
-            yield scrapy.Request(self.start_urls[i], self.parse)
+            yield scrapy.Request(self.start_urls[i], self.parse, headers=self.Headers)
 
     def parse(self, response):
         obj = xmltodict.parse(response.body)
@@ -46,7 +48,7 @@ class ShaishufangAPISpider(scrapy.Spider):
         for page in range(1, pageNum + 1):
             url = self.APIPrefix + str(self.UID) + '&shortCategory=all&fmt=xml&page_size=500&page_index=' + str(page)
             # logging.info(url)
-            yield scrapy.Request(url, self.parsePage)
+            yield scrapy.Request(url, self.parsePage, headers=self.Headers)
 
         # soup = BeautifulSoup(response.body, "lxml")
         # userName = self.getUserName(soup)
