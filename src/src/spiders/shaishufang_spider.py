@@ -110,26 +110,30 @@ class ShaishufangSpider(scrapy.Spider):
         ubid = urlparse(response.url).path.split('/')[7]
 
         ISBN = self.getISBN(soup)
-        if ISBN:
-            bookDict = {
-                'ISBN': ISBN,
-                'UID': uid,
-                'UBID': ubid
-            }
-            dataDict = {
-                'url': response.url,
-                'spider': self.name,
-                'data': bookDict
-            }
-            self.Datas['datas'].append(dataDict)
+        BookName = self.getBookName(soup)
+        Authors = self.getAuthors(soup)
+        
+        bookDict = {
+            'ISBN': ISBN,
+            'UID': uid,
+            'UBID': ubid,
+            'BookName': BookName,
+            'Authors': Authors
+        }
+        dataDict = {
+            'url': response.url,
+            'spider': self.name,
+            'data': bookDict
+        }
+        self.Datas['datas'].append(dataDict)
 
-            fileDict = {
-                'url': response.url,
-                'head': response.headers.to_string(),
-                'body': response.body,
-                'spider': self.name
-            }
-            self.Files['files'].append(fileDict)
+        fileDict = {
+            'url': response.url,
+            'head': response.headers.to_string(),
+            'body': response.body,
+            'spider': self.name
+        }
+        self.Files['files'].append(fileDict)
 
 
     # 从书的详细页面获取ISBN
@@ -144,6 +148,31 @@ class ShaishufangSpider(scrapy.Spider):
                 return str(soup.find('div', {'id': 'attr'}).find_all('li')[-1].text.replace('ISBN:', ''))
             else:
                 return False
+
+        return False
+
+    # 从书籍的详细页面获取书籍名称
+    def getBookName(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'attr'}):
+            if soup.find('div', {'id': 'attr'}).find('h2'):
+                return soup.find('div', {'id': 'attr'}).find('h2').text
+
+        return False
+
+    # 从书籍的详细页面获取作者
+    def getAuthors(self, soup):
+        if not soup:
+            return False
+
+        if soup.find('div', {'id': 'attr'}):
+            if len(soup.find('div', {'id': 'attr'}).find_all('li')) == 0:
+                return False
+
+            # if "出版社:" in soup.find('div', {'id': 'attr'}).find_all('li')[1].text:
+            return soup.find('div', {'id': 'attr'}).find_all('li')[1].text
 
         return False
 
