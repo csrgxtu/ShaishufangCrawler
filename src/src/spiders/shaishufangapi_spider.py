@@ -11,6 +11,9 @@ class ShaishufangAPISpider(scrapy.Spider):
     name = "ShaishufangAPI"
     start_urls = []
 
+    http_user = '279160'
+    http_pass = '01621b19614a7ce34a2d82177b0f3469'
+
     ISBNS = []
     UID = None
 
@@ -23,32 +26,16 @@ class ShaishufangAPISpider(scrapy.Spider):
         super(ShaishufangAPISpider, self).__init__(*args, **kwargs)
         dispatcher.connect(self.spider_closed, signals.spider_closed)
         self.UID = uid
-        # url = self.APIPrefix + str(uid) + self.APIPostfix
-        self.start_urls.append(self.APILogin)
+        url = self.APIPrefix + str(uid) + self.APIPostfix
+        self.start_urls.append(url)
+
+    def start_requests(self):
+        for i in range(len(self.start_urls)):
+            yield scrapy.Request(self.start_urls[i], self.parse)
 
     def parse(self, response):
-        return scrapy.FormRequest.from_response(
-            response,
-            formdata={'email': 'desmend@sina.cn', 'password': 'Archer124650'},
-            callback=self.after_login
-        )
-
-    def after_login(self, response):
-        logging.info(response.body)
-        # check login succeed before going on
-        # if "authentication failed" in response.body:
-        #     self.logger.error("Login failed")
-        #     return
-
-        # continue scraping with authenticated session...
-
-    # def start_requests(self):
-    #     for i in range(len(self.start_urls)):
-    #         yield scrapy.Request(self.start_urls[i], self.parse)
-
-    # def parse(self, response):
-    #     obj = xmltodict.parse(response.body)
-    #     logging.info(int(obj['response']['result']['total']))
+        obj = xmltodict.parse(response.body)
+        logging.info(int(obj['response']['result']['total']))
 
 
         # soup = BeautifulSoup(response.body, "lxml")
