@@ -36,7 +36,7 @@ DOWNLOADER_MIDDLEWARES = {
     # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
 }
 
-# LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'INFO'
 CONCURRENT_REQUESTS=8
 
 # API_HOST = 'http://192.168.100.3:5000/'

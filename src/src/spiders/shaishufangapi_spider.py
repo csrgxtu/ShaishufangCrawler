@@ -62,12 +62,19 @@ class ShaishufangAPISpider(scrapy.Spider):
         obj = xmltodict.parse(response.body)
         logging.info('Books: ' + str(len(obj['response']['result']['books']['item'])))
         self.TotalBooks = self.TotalBooks + len(obj['response']['result']['books']['item'])
+
+        for book in obj['response']['result']['books']['item']:
+            # self.ISBNS.append(str(book['isbn']))
+            # logging.info(book['isbn'])
+            if book['isbn'] != None:
+                self.ISBNS.append(book['isbn'])
         # pass
 
     def spider_closed(self, spider):
         # logging.info("Spider's destructor")
         # logging.info(self.ISBNS)
-        # saveLstToFile(self.UID + '.csv', self.ISBNS)
         # saveMatrixToFile(self.UID + '.csv', self.Books)
         # pass
         logging.info('Actual Total Books: ' + str(self.TotalBooks))
+        logging.info('Isbns in ISBNS: ' + str(len(self.ISBNS)))
+        saveLstToFile(self.UID + '.csv', self.ISBNS)
