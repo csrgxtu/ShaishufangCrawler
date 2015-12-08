@@ -16,10 +16,11 @@ class ShaishufangAPISpider(scrapy.Spider):
 
     ISBNS = []
     UID = None
+    TotalBooks = 0
 
-    APILogin = 'http://121.41.60.81/index.php/api2/account/verify_credentials/'
+    # APILogin = 'http://121.41.60.81/index.php/api2/account/verify_credentials/'
     APIPrefix = 'http://121.41.60.81/index.php/api2/bookroom/books/list?uid='
-    APIPostfix = '&shortCategory=all&page_index=0&page_size=1&fmt=xml'
+    APIPostfix = '&shortCategory=all&page_index=0&page_size=0&fmt=xml'
 
     # build start_urls list first
     def __init__(self, uid, *args, **kwargs):
@@ -35,8 +36,17 @@ class ShaishufangAPISpider(scrapy.Spider):
 
     def parse(self, response):
         obj = xmltodict.parse(response.body)
-        logging.info(int(obj['response']['result']['total']))
+        logging.info('Declared Total Books: ' + str(int(obj['response']['result']['total'])))
+        # everytime, request 500 books from the api
+        pageNum = 0
+        if (int(obj['response']['result']['total']) % 500) > 0:
+            pageNum = int(obj['response']['result']['total'])/500 + 1
 
+        logging.info('TotalPageNum: ' + str(pageNum))
+        for page in range(1, pageNum + 1):
+            url = self.APIPrefix + str(self.UID) + '&shortCategory=all&fmt=xml&page_size=500&page_index=' + str(page)
+            # logging.info(url)
+            yield scrapy.Request(url, self.parsePage)
 
         # soup = BeautifulSoup(response.body, "lxml")
         # userName = self.getUserName(soup)
@@ -48,10 +58,16 @@ class ShaishufangAPISpider(scrapy.Spider):
         #     url = self.urlPrefix + UID + self.pagePostfix + str(page)
         #     yield scrapy.Request(url, self.parsePage, cookies=self.cookie)
 
+    def parsePage(self, response):
+        obj = xmltodict.parse(response.body)
+        logging.info('Books: ' + str(len(obj['response']['result']['books']['item'])))
+        self.TotalBooks = self.TotalBooks + len(obj['response']['result']['books']['item'])
+        # pass
 
     def spider_closed(self, spider):
         # logging.info("Spider's destructor")
         # logging.info(self.ISBNS)
         # saveLstToFile(self.UID + '.csv', self.ISBNS)
         # saveMatrixToFile(self.UID + '.csv', self.Books)
-        pass
+        # pass
+        logging.info('Actual Total Books: ' + str(self.TotalBooks))
